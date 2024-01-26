@@ -8,7 +8,7 @@ const hino = () => {
   return (
     <View style={styles.container}>
         <View>
-            <Image source={require('../assets/icons/main-icon.png')} style={styles.img}/>
+            <Image source={require('../../assets/icons/main-icon.png')} style={styles.img}/>
         </View>
         <View style={styles.main}>
             <TouchableOpacity onPress={() => {router.push("/tabs-harpa/hino1")}}>

@@ -7,29 +7,29 @@ const harpa = () => {
   return (
     <View style={styles.container}>
         <View>
-            <Image source={require('../assets/icons/main-icon.png')} style={styles.img}/>
+            <Image source={require('../../assets/icons/main-icon.png')} style={styles.img}/>
         </View>
        <View style={styles.main}>
           <View style={styles.harpa}>
-            <Image source={require('../assets/images/fundo-harpa.png')} style={styles.image} />
+            <Image source={require('../../assets/images/fundo-harpa.png')} style={styles.image} />
             <Text style={styles.title}>Harpa</Text>  
-            <Image source={require('../assets/icons/Line.png')} style={styles.line}/>    
+            <Image source={require('../../assets/icons/Line.png')} style={styles.line}/>    
             <Text style={styles.text}>Harpa Cristã Completa</Text>
             <Link href="/hino" style={styles.link}>Acessar</Link>          
           </View>
 
           <View style={styles.coros}>
-            <Image source={require('../assets/images/fundo-coros.png')} style={styles.image} />
+            <Image source={require('../../assets/images/fundo-coros.png')} style={styles.image} />
             <Text style={styles.title}>Coros</Text>  
-            <Image source={require('../assets/icons/Line.png')} style={styles.line}/>    
+            <Image source={require('../../assets/icons/Line.png')} style={styles.line}/>    
             <Text style={styles.text}>Coros Cristãos Completos</Text>
             <Link href="/" style={styles.link}>Em Breve</Link>          
           </View>
 
           <View style={styles.hinos}>
-            <Image source={require('../assets/images/fundo-hinos.png')} style={styles.image} />
+            <Image source={require('../../assets/images/fundo-hinos.png')} style={styles.image} />
             <Text style={styles.title}>Hinos</Text>  
-            <Image source={require('../assets/icons/Line.png')} style={styles.line}/>    
+            <Image source={require('../../assets/icons/Line.png')} style={styles.line}/>    
             <Text style={styles.text}>Sua Pasta Digital de Hinos</Text>
             <Link href="/" style={styles.link}>Em breve</Link> 
           </View>

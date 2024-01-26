@@ -1,31 +1,38 @@
-import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { Link } from 'expo-router';
 
-export default function Login() {
-  const [fontLoaded] = useFonts({
-    Nunito_500Medium,
-    Poppins_700Bold
-  })
+export default function Cadastro() {
+    const [fontLoaded] = useFonts({
+      Nunito_500Medium,
+      Poppins_700Bold
+    })
 
   if (!fontLoaded) {
     return null;
   }
-
+  
   return (
     <View>
       <View style={styles.main}>
         <Image source={require('../../assets/images/icon.png')} style={styles.image}/>
         <View style={styles.mainText}>
-          <Text style={styles.h3}>A paz do Senhor!</Text>
-          <Text style={styles.h1}>Seja Bem-vindo!</Text>           
-          <Text style={styles.txt}>Insira suas informações abaixo para entrar na sua conta!</Text>        
+          <Text style={styles.h1}>Vamos criar sua conta!</Text>           
+          <Text style={{...styles.txt, paddingTop: 5}}>Está pronto para navegar na adoração? insira as informações abaixo para criar sua conta!</Text>        
         </View>
 
         <View style={styles.form}>
           <View>
+            <Text style={styles.h3}>Nome</Text>
+            <TextInput
+              style={styles.input}
+              placeholder={'Insira seu Nome...'}
+            />
+          </View>
+
+          <View style={{paddingTop: 15}}>
             <Text style={styles.h3}>Email</Text>
             <TextInput
               style={styles.input}
@@ -41,10 +48,18 @@ export default function Login() {
             />
           </View>
 
-          <TouchableOpacity style={styles.btn} activeOpacity={0.7}>Entrar</TouchableOpacity>
+          <View style={{paddingTop: 15}}>
+            <Text style={styles.h3}>Confirme sua Senha</Text>
+            <TextInput              
+              style={styles.input}
+              placeholder={'Insira sua Senha Novamente...'}
+            />
+          </View>
+
+          <TouchableOpacity style={styles.btn} activeOpacity={0.7}>Cadastrar</TouchableOpacity>
 
           <View style={{textAlign: 'center', paddingTop: 20}}>
-            <Text style={styles.h3}>Não tem conta ainda? <Link style={styles.span} href={'/screens/cadastro'}>Criar Agora</Link></Text>
+            <Text style={styles.h3}>Ao se cadastrar você estará concordando com os termos de politica e privacidade!</Text>
           </View>
         </View>
       </View>
@@ -54,7 +69,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   main: {
-    paddingTop: 120,
+    paddingTop: 40,
     display: 'flex',
     justifyContent: 'center',
     paddingHorizontal: 20
@@ -68,7 +83,8 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 36,
-    fontFamily: 'Poppins_700Bold'    
+    fontFamily: 'Poppins_700Bold',
+    lineHeight: 40    
   },
   h3: {
     fontSize: 14,
@@ -104,9 +120,5 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'Nunito_500Medium',
     borderRadius: 12    
-  },
-  span: {
-    color: '#FFCB69',
-    fontFamily: 'Poppins_700Bold'    
   }
 })

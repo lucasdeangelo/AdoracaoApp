@@ -2,8 +2,7 @@ import { StyleSheet, Image, Text, View, TextInput, Picker, TouchableOpacity, Ale
 import React, { useState } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Link } from 'expo-router';
-import { useNavigation } from '@react-navigation/native';
+import { Link, useRouter } from 'expo-router';
 import { registerUser } from '../api/api';
 
 export default function Cadastro() {
@@ -12,7 +11,7 @@ export default function Cadastro() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [typeUser, settypeUser] = useState('');
-  const navigation = useNavigation();
+  const router = useRouter();
 
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
@@ -40,7 +39,7 @@ export default function Cadastro() {
     registerUser(createUser)
       .then(response => {
         Alert.alert('Sucesso', 'Cadastro realizado com sucesso!');
-        navigation.navigate('/screens/login');
+        router.push('/screens/login');
       })
       .catch(error => {
         Alert.alert('Erro', 'Erro ao realizar cadastro. Tente novamente.');

@@ -1,10 +1,14 @@
-import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import { userLogin } from '../api/api';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Poppins_700Bold
@@ -13,6 +17,21 @@ export default function Login() {
   if (!fontLoaded) {
     return null;
   }
+
+  const handleLogin = () => {
+    const loginUser = {
+      email,
+      password
+    }
+    userLogin(loginUser)
+      .then(response => {
+        router.push('screens/dashboard');
+      })
+      .catch(error => {
+        Alert.alert('Erro', 'Erro ao Entrar. Tente novamente.');
+        console.error(error);
+      });
+  };
 
   return (
     <View>
@@ -30,6 +49,8 @@ export default function Login() {
             <TextInput
               style={styles.input}
               placeholder={'Insira seu Email...'}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
 
@@ -38,10 +59,13 @@ export default function Login() {
             <TextInput
               style={styles.input}
               placeholder={'Insira sua Senha...'}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
             />
           </View>
 
-          <TouchableOpacity style={styles.btn} activeOpacity={0.7}>Entrar</TouchableOpacity>
+          <TouchableOpacity style={styles.btn} activeOpacity={0.7} onPress={handleLogin}>Entrar</TouchableOpacity>
 
           <View style={{textAlign: 'center', paddingTop: 20}}>
             <Text style={styles.h3}>Não tem conta ainda? <Link style={styles.span} href={'/screens/cadastro'}>Criar Agora</Link></Text>

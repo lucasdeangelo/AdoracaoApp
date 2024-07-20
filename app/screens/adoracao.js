@@ -1,12 +1,106 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
+import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
+import { Poppins_700Bold } from '@expo-google-fonts/poppins';
+import MenuInferior from '../components/menuInferior';
+import MenuSuperior from '../components/menuSuperior';
+import { Link } from 'expo-router';
 
 export default function adoracao() {
+  const [fontLoaded] = useFonts({
+    Nunito_500Medium,
+    Poppins_700Bold
+  })
+
+  if (!fontLoaded) {
+    return null;
+  };
+  
   return (
     <View>
-      <Text>adoracao</Text>
+      <View>
+        <MenuSuperior/>
+        <View>
+          <Text style={{paddingLeft: 15, ...styles.h2}}>Adoração</Text>
+
+          <View style={styles.cards}>
+            <Link href={'/screens/harpa'} style={{...styles.card, backgroundColor: "#FFFAE1",}}> 
+              <Image source={require('../../assets/images/harpa-crista.jpg')} style={styles.image}/>
+              <View style={{justifyContent: "center", paddingLeft: 15}}>
+                <Text style={{...styles.cardTitle, color: "#BA9D36"}}>Harpa Cristã</Text>
+                <Text style={{...styles.cardTxt, color: "#B8AB7D"}}>Encontre todos os hinos da Harpa <br/>Cristã e adore a Deus com alegria!</Text>
+              </View>
+            </Link>
+
+            <Link href={'/screens/hinario'} style={{...styles.card, backgroundColor: "#F1FBFF",}}> 
+              <Image source={require('../../assets/images/homem-cantando.jpg')} style={styles.image}/>
+              <View style={{justifyContent: "center", paddingLeft: 15}}>
+                <Text style={{...styles.cardTitle, color: "#26516E"}}>Hinos Cristãos</Text>
+                <Text style={{...styles.cardTxt, color: "#5F8BA9"}}>Encontre todos os Hinos Cristãos <br/>e adore a Deus com alegria!</Text>
+              </View>
+            </Link>
+
+            <Link href={'/screens/coros'} style={{...styles.card, backgroundColor: "#FFE9E9",}}> 
+              <Image source={require('../../assets/images/pexels-thirdman-6193846.jpg')} style={styles.image}/>
+              <View style={{justifyContent: "center", paddingLeft: 15}}>
+                <Text style={{...styles.cardTitle, color: "#FF8282"}}>Coros Cristãos</Text>
+                <Text style={{...styles.cardTxt, color: "#E39393"}}>Encontre todos os Coros Cristãos <br/>e adore a Deus com alegria!</Text>
+              </View>
+            </Link>
+
+            <Link href={'/screens/coros'} style={{...styles.card, backgroundColor: "#E2FFE3",}}> 
+              <Image source={require('../../assets/images/partitura.jpg')} style={styles.image}/>
+              <View style={{justifyContent: "center", paddingLeft: 15}}>
+                <Text style={{...styles.cardTitle, color: "#459041"}}>Cifras Cristãos</Text>
+                <Text style={{...styles.cardTxt, color: "#64A95F"}}>Veja todas as Cifras dos hinos <br/>Cristãos e toque ao Senhor!</Text>
+              </View>
+            </Link>
+          </View>
+        </View>
+        <MenuInferior/>
+      </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  h2: {
+    fontSize: 24,
+    fontFamily: 'Poppins_700Bold'    
+  },
+  h3: {
+    fontSize: 14,
+    fontFamily: 'Nunito_500Medium',
+    color: '#BFBFBF',    
+  },
+  txt: {
+    fontSize: 14,
+    fontFamily: 'Nunito_500Medium',
+    color: '#BFBFBF',
+    lineHeight: 14
+  },
+  cards: {
+    paddingTop: 10,
+  },
+  card: {
+    marginVertical: 10,
+    marginHorizontal: 10,
+    borderRadius: 10,    
+    display: "flex"
+  },
+  cardTitle:{
+    fontSize: 18,
+    fontFamily: "Poppins_700Bold",
+  },
+  cardTxt:{
+    fontFamily: 'Nunito_500Medium',
+    lineHeight: 18,
+    paddingTop: 4
+  },
+  image:{
+    width: 90,
+    height: 90,
+    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 10
+  }
+})

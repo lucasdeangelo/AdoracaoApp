@@ -1,104 +1,117 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, Button} from 'react-native'
-import React from 'react'
-import { Link, useRouter, } from 'expo-router'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { useFonts, Nunito_700Bold } from '@expo-google-fonts/nunito';
+import { Poppins_700Bold } from '@expo-google-fonts/poppins';
+import MenuInferior from '../components/menuInferior';
+import MenuSuperior from '../components/menuSuperior';
+import { fetchHinoByNumero } from '../api/api';
 
+const formatText = (text, style = styles.textLine) => {
+  return text.split('<br>').map((line, index) => (
+    <Text key={index} style={styles.textLine}>{line.trim()}</Text>
+  ));
+};
 
-const hino = () => {
-    const router = useRouter()
+export default function Hino({ hino, navigateTo }) {
+  const [fontLoaded] = useFonts({
+    Nunito_700Bold,
+    Poppins_700Bold
+  })
+
+  if (!fontLoaded) {
+    return null;
+  }
+
+  if (!hino) {
+    return (
+      <View style={styles.container}>
+        <Text>Hino não encontrado.</Text>
+      </View>
+    );
+  }
+
+  const { titulo, coro, verses } = hino;
+
   return (
-    <View style={styles.container}>
-        <View>
-            <Image source={require('../../assets/icons/main-icon.png')} style={styles.img}/>
-        </View>
-        <View style={styles.main}>
-            <TouchableOpacity onPress={() => {router.push("/tabs-harpa/hino1")}}>
-                <View style={styles.hino1}>
-                    <Text style={styles.number}>01</Text>    
-                    <Text style={styles.title}>Chuva de Graças</Text>    
-                    <Text style={styles.txt}>CPAD/J.R</Text>    
-                </View>
-            </TouchableOpacity>
+    <View style={styles.container}>              
+      <View style={styles.titleContainer}>
+        <TouchableOpacity onPress={() => navigateTo('Harpa')}>
+          <Text style={styles.backButton}>&#60;</Text>
+        </TouchableOpacity>    
 
-            <TouchableOpacity onPress={() => {router.push("/tabs-harpa/hino2")}}>
-                <View style={styles.hino2}>
-                    <Text style={styles.number}>02</Text>    
-                    <Text style={styles.title}>O Que Saudosa Lembrança</Text>    
-                    <Text style={styles.txt}>CPAD/A.N</Text>    
-                </View>
-            </TouchableOpacity>
+        <Text style={{paddingLeft: 15, ...styles.h2}}>Harpa Cristã</Text>
+      </View>
+        <ScrollView style={styles.box}>                          
+          <Text style={styles.title}>{hino.numero} - {titulo}</Text>
 
-            <TouchableOpacity onPress={() => {router.push("/tabs-harpa/hino3")}}>
-                <View style={styles.hino1}>
-                    <Text style={styles.number}>03</Text>    
-                    <Text style={styles.title}>Plena Paz</Text>    
-                    <Text style={styles.txt}>CPAD/A.N</Text>    
-                </View>
-            </TouchableOpacity>
+          {Object.entries(verses).map(([key, verse], index) => (
+            <View key={index} style={styles.verseContainer}>
+              {formatText(verse)}
+              {index === 0 && coro && (
+                <View style={styles.coroContainer}>
+              {formatText(coro, styles.coro)}
+            </View>)}
+            </View>
+          ))}
+        </ScrollView>
 
-            <TouchableOpacity onPress={() => {router.push("/tabs-harpa/hino4")}}>
-                <View style={styles.hino2}>
-                    <Text style={styles.number}>04</Text>    
-                    <Text style={styles.title}>Deus Velará Por Ti</Text>    
-                    <Text style={styles.txt}>CPAD/A.N</Text>    
-                </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => {router.push("/tabs-harpa/hino5")}}>
-                <View style={styles.hino1}>
-                    <Text style={styles.number}>05</Text>    
-                    <Text style={styles.title}>Ó Desce, Fogo Santo</Text>    
-                    <Text style={styles.txt}>CPAD/J.R</Text>    
-                </View>
-            </TouchableOpacity>
-            
-            <Button style={styles.button} onPress={() => router.back()} title="Voltar" />
-        </View>
+        <MenuInferior/>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        backgroundColor: "#FFFDFA",  
-        justifyContent: "flex-start"
-    },
-    img: {
-        marginLeft: 20,
-        marginTop:5,
-        width: 80,
-        height: 80
-    },
-    main:{
-        marginTop: 40
-    },
-    hino1: {
-        borderRadius: 15,
-        backgroundColor: "#FAF5F0",
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 15,
-        marginTop: 0,
-    },
-    hino2: {
-        borderRadius: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 15,
-       
-    },
-    number: {
-        fontSize: 18,
-        
-    },
-    title: {
-        fontSize: 20,
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  h2: {
+    fontSize: 24,
+    fontFamily: 'Poppins_700Bold'    
+  },
+  box: {
+    backgroundColor: '#FFFAE1',
+    paddingLeft: 20,
+    marginTop: 15
+  },
+  title: {
+    fontSize: 16,
+    fontFamily: 'Poppins_700Bold',
+    marginBottom: 20,
+    marginTop: 10
+  },
+  backButton: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: '#FFCB69',
+    paddingVertical: 5,
+    paddingHorizontal: 14,
+    borderRadius: 5
+  },
+  textLine: {
+    fontSize: 16,
+    marginBottom: 10,
+    fontFamily: 'Nunito_700Bold',
+    lineHeight: 12
+  },
+  coro: {
+    fontSize: 44,
+    fontStyle: 'italic',
+    marginBottom: 20,
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold' 
+  },
+  titleContainer:{
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  coroContainer: {
+    marginTop: 10,
+  },
+  verseContainer: {
+    marginBottom: 10, // Adds space between verses
+  },
 
-    },
-    txt: {
-        fontSize: 16,
-
-    },
-    
 })
-export default hino

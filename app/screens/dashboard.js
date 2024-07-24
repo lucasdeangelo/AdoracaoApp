@@ -3,7 +3,7 @@ import React from 'react';
 import MenuInferior from '../components/menuInferior';
 import MenuSuperior from '../components/menuSuperior';
 
-export default function dashboard() {
+export default function Dashboard({}) {
   return (
     <View>
       <View>

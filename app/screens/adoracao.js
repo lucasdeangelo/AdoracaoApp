@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
@@ -6,7 +6,7 @@ import MenuInferior from '../components/menuInferior';
 import MenuSuperior from '../components/menuSuperior';
 import { Link } from 'expo-router';
 
-export default function adoracao() {
+export default function Adoracao({ navigateTo }) {
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Poppins_700Bold
@@ -24,13 +24,14 @@ export default function adoracao() {
           <Text style={{paddingLeft: 15, ...styles.h2}}>Adoração</Text>
 
           <View style={styles.cards}>
-            <Link href={'/screens/harpa'} style={{...styles.card, backgroundColor: "#FFFAE1",}}> 
+            <TouchableOpacity onPress={() => navigateTo('Harpa')} style={{...styles.card, backgroundColor: "#FFFAE1",}}>             
               <Image source={require('../../assets/images/harpa-crista.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#BA9D36"}}>Harpa Cristã</Text>
                 <Text style={{...styles.cardTxt, color: "#B8AB7D"}}>Encontre todos os hinos da Harpa <br/>Cristã e adore a Deus com alegria!</Text>
-              </View>
-            </Link>
+              </View>              
+            </TouchableOpacity> 
+            
 
             <Link href={'/screens/hinario'} style={{...styles.card, backgroundColor: "#F1FBFF",}}> 
               <Image source={require('../../assets/images/homem-cantando.jpg')} style={styles.image}/>
@@ -86,7 +87,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 10,
     borderRadius: 10,    
-    display: "flex"
+    display: "flex",
+    flexDirection: 'row'
   },
   cardTitle:{
     fontSize: 18,

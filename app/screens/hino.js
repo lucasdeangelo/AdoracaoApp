@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react';
-import { useFonts, Nunito_700Bold } from '@expo-google-fonts/nunito';
+import { useFonts, Nunito_700Bold, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
 import MenuInferior from '../components/menuInferior';
 import MenuSuperior from '../components/menuSuperior';
@@ -12,8 +12,9 @@ const formatText = (text, style = styles.textLine) => {
   ));
 };
 
-export default function Hino({ hino, navigateTo }) {
+export default function Hino({ selectedHino, navigateTo }) {
   const [fontLoaded] = useFonts({
+    Nunito_500Medium,
     Nunito_700Bold,
     Poppins_700Bold
   })
@@ -22,7 +23,7 @@ export default function Hino({ hino, navigateTo }) {
     return null;
   }
 
-  if (!hino) {
+  if (!selectedHino) {
     return (
       <View style={styles.container}>
         <Text>Hino não encontrado.</Text>
@@ -30,7 +31,7 @@ export default function Hino({ hino, navigateTo }) {
     );
   }
 
-  const { titulo, coro, verses } = hino;
+  const { titulo, coro, verses } = selectedHino;
 
   return (
     <View style={styles.container}>              
@@ -42,7 +43,7 @@ export default function Hino({ hino, navigateTo }) {
         <Text style={{paddingLeft: 15, ...styles.h2}}>Harpa Cristã</Text>
       </View>
         <ScrollView style={styles.box}>                          
-          <Text style={styles.title}>{hino.numero} - {titulo}</Text>
+          <Text style={styles.title}>{selectedHino.numero} - {titulo}</Text>
 
           {Object.entries(verses).map(([key, verse], index) => (
             <View key={index} style={styles.verseContainer}>
@@ -72,13 +73,15 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: '#FFFAE1',
     paddingLeft: 20,
-    marginTop: 15
+    marginTop: 15,
+    borderRadius: 15
   },
   title: {
     fontSize: 16,
     fontFamily: 'Poppins_700Bold',
+    color: '#BA9D36',
     marginBottom: 20,
-    marginTop: 10
+    marginTop: 15
   },
   backButton: {
     fontSize: 28,
@@ -92,7 +95,8 @@ const styles = StyleSheet.create({
   textLine: {
     fontSize: 16,
     marginBottom: 10,
-    fontFamily: 'Nunito_700Bold',
+    fontFamily: 'Nunito_500Medium',
+    color: '#B8AB7D',
     lineHeight: 12
   },
   coro: {

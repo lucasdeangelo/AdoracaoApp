@@ -2,23 +2,19 @@ import { StyleSheet, Image, View, TouchableOpacity, Text } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
 
-export default function MenuInferior() {
+export default function MenuInferior({ navigateTo }) {
   return (
     <View style={styles.container}>
       <View style={styles.main}>
         <View>
-          <TouchableOpacity style={styles.option} activeOpacity={0.7}>
-            <Link href={'/screens/dashboard'}>
-              <Image source={require('../../assets/icons/inicio.svg')} style={styles.image}/>                
-            </Link>
+          <TouchableOpacity onPress={() => navigateTo('Dashboard')} style={styles.option} activeOpacity={0.7}>            
+              <Image source={require('../../assets/icons/inicio.svg')} style={styles.image}/>                      
           </TouchableOpacity>
         </View>                
 
         <View>        
-          <TouchableOpacity style={styles.option} activeOpacity={0.7}>
-            <Link href={'/screens/adoracao'}>
-              <Image source={require('../../assets/icons/adoracao.svg')} style={{...styles.image, height: 48}}/>                
-            </Link>
+          <TouchableOpacity onPress={() => navigateTo('Adoracao')} style={styles.option} activeOpacity={0.7}>            
+            <Image source={require('../../assets/icons/adoracao.svg')} style={{...styles.image, height: 48}}/>                        
           </TouchableOpacity>
         </View>
 

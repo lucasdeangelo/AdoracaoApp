@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold , Poppins_600SemiBold } from '@expo-google-fonts/poppins';
@@ -8,12 +8,15 @@ import { fetchHinosGeral } from '../api/api'
 
 export default function Hinario({ navigateTo }) {
   const [hinos, setHinos] = useState([]);
+  const [filteredHinos, setFilteredHinos] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     const getHinosGeral = async () => {
       try {
         const data = await fetchHinosGeral();
         setHinos(data);
+        setFilteredHinos(data);
       } catch (error) {
         console.error('Erro ao obter hinos:', error);
       }
@@ -21,6 +24,15 @@ export default function Hinario({ navigateTo }) {
 
     getHinosGeral();
   }, []);
+
+  useEffect(() => {
+    // Filtrar hinos conforme o texto de busca muda
+    const filtered = hinos.filter(hino => 
+      hino.titulo.toLowerCase().includes(searchText.toLowerCase()) ||
+      hino.numero.toString().includes(searchText)
+    );
+    setFilteredHinos(filtered);
+  }, [searchText, hinos]);
 
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
@@ -44,9 +56,16 @@ export default function Hinario({ navigateTo }) {
                 <Text style={{paddingLeft: 15, ...styles.h2}}>Hinos Cristãos</Text>
               </View>
                 <View>
-                {hinos.map((hino) => (
+                <TextInput
+                  style={styles.searchBar}
+                  placeholder="&#x1F50D; Buscar hino..."
+                  value={searchText}
+                  onChangeText={text => setSearchText(text)}
+                />
+                {filteredHinos.map((hino) => (
                   <TouchableOpacity
                     key={hino.numero}
+                    data={filteredHinos}
                     onPress={() => navigateTo('HinoGeral', hino)}
                   >
                     <Text style={styles.item}>{hino.titulo}</Text>
@@ -65,6 +84,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'Poppins_700Bold',  
     marginBottom: 15  
+  },
+  searchBar: {
+    padding: 18,
+    backgroundColor: '#F1FBFF',
+    borderWidth: 2,
+    borderColor: '#26516E',
+    fontFamily: 'Poppins_600SemiBold', 
+    marginHorizontal: 5,
+    marginBottom: 12,
+    borderRadius: 12,
   },
   container: {
     flex: 1,
@@ -92,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
-    backgroundColor: '#FFCB69',
+    backgroundColor: '#26516E',
     paddingVertical: 5,
     paddingHorizontal: 14,
     borderRadius: 5

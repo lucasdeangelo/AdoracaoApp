@@ -25,10 +25,13 @@ export default function Hinario({ navigateTo }) {
     getHinosGeral();
   }, []);
 
+  const removeAccents = (str) => {
+    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : '';
+  };
+
   useEffect(() => {
-    // Filtrar hinos conforme o texto de busca muda
     const filtered = hinos.filter(hino => 
-      hino.titulo.toLowerCase().includes(searchText.toLowerCase()) ||
+      removeAccents(hino.titulo.toLowerCase()).includes(removeAccents(searchText.toLowerCase())) ||
       hino.numero.toString().includes(searchText)
     );
     setFilteredHinos(filtered);
@@ -94,6 +97,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginBottom: 12,
     borderRadius: 12,
+    color: '#26516E'
   },
   container: {
     flex: 1,

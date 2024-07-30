@@ -7,10 +7,13 @@ import Dashboard from './screens/dashboard'
 import Adoracao from './screens/adoracao'
 import Harpa from './screens/harpa'
 import Hino from './screens/hino'
+import Hinario from './screens/hinario'; 
+import HinoGeral from './screens/hinoGeral';
 
 export default function Page() {
   const [currentScreen, setCurrentScreen] = useState('Dashboard')
   const [selectedHino, setSelectedHino] = useState(null);
+  const [selectedHinoGeral, setSelectedHinoGeral] = useState(null);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect(() => {
@@ -30,8 +33,9 @@ export default function Page() {
   // }, []);
 
 
-  const navigateTo = (screen, hino = null) => {
+  const navigateTo = (screen, hino = null, hinoGeral = null) => {
     setSelectedHino(hino);
+    setSelectedHinoGeral(hinoGeral);
     setCurrentScreen(screen);
   };
 
@@ -53,16 +57,23 @@ export default function Page() {
       case 'Hino':
         ScreenComponent = Hino;
         break;
+      case 'Hinario':
+        ScreenComponent = Hinario;
+        break;
+      case 'HinoGeral': 
+        ScreenComponent = HinoGeral;
+        break;
       default:
         ScreenComponent = Dashboard;
+        break;
     }
   // }
 
 
   return (    
     <View style={styles.container}>
-      <ScreenComponent navigateTo={navigateTo} selectedHino={selectedHino} />
-     <MenuInferior navigateTo={navigateTo} />
+      <ScreenComponent navigateTo={navigateTo} selectedHino={selectedHino} selectedHinoGeral={selectedHinoGeral} />
+      <MenuInferior navigateTo={navigateTo} />
     </View>    
   )
 }

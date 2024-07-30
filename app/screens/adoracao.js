@@ -33,13 +33,13 @@ export default function Adoracao({ navigateTo }) {
             </TouchableOpacity> 
             
 
-            <Link href={'/screens/hinario'} style={{...styles.card, backgroundColor: "#F1FBFF",}}> 
+            <TouchableOpacity onPress={() => navigateTo('Hinario')} style={{...styles.card, backgroundColor: "#F1FBFF",}}> 
               <Image source={require('../../assets/images/homem-cantando.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#26516E"}}>Hinos Cristãos</Text>
                 <Text style={{...styles.cardTxt, color: "#5F8BA9"}}>Encontre todos os Hinos Cristãos <br/>e adore a Deus com alegria!</Text>
               </View>
-            </Link>
+            </TouchableOpacity>
 
             <Link href={'/screens/coros'} style={{...styles.card, backgroundColor: "#FFE9E9",}}> 
               <Image source={require('../../assets/images/pexels-thirdman-6193846.jpg')} style={styles.image}/>

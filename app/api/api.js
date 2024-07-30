@@ -29,3 +29,13 @@ export const fetchHinoByNumero = async (numero) => {
     throw error;
   }
 };
+
+export const fetchHinosGeral = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/hinario`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter hinos:', error);
+    throw error;
+  }
+};

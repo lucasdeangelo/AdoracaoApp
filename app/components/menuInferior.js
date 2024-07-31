@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
 
@@ -8,20 +8,20 @@ export default function MenuInferior({ navigateTo }) {
       <View style={styles.main}>
         <View>
           <TouchableOpacity onPress={() => navigateTo('Dashboard')} style={styles.option} activeOpacity={0.7}>            
-              <Image source={require('../../assets/icons/inicio.svg')} style={styles.image}/>                      
+              <Image source={require('../../assets/icons/inicio.png')} style={styles.image}/>                      
           </TouchableOpacity>
         </View>                
 
         <View>        
           <TouchableOpacity onPress={() => navigateTo('Adoracao')} style={styles.option} activeOpacity={0.7}>            
-            <Image source={require('../../assets/icons/adoracao.svg')} style={{...styles.image, height: 48}}/>                        
+            <Image source={require('../../assets/icons/adoracao.png')} style={{...styles.image, height: 48}}/>                        
           </TouchableOpacity>
         </View>
 
         <View>
           <TouchableOpacity style={styles.option} activeOpacity={0.7}>
             <Link href={'/screens/pesquisa'}>
-              <Image source={require('../../assets/icons/lupa.svg')} style={styles.image}/>                
+              <Image source={require('../../assets/icons/lupa.png')} style={styles.image}/>                
             </Link>
           </TouchableOpacity>
         </View>
@@ -29,7 +29,7 @@ export default function MenuInferior({ navigateTo }) {
         <View>
           <TouchableOpacity style={styles.option} activeOpacity={0.7}>
             <Link href={'/screens/favoritos'}>
-              <Image source={require('../../assets/icons/coracao.svg')} style={{...styles.image, height: 39}}/>                
+              <Image source={require('../../assets/icons/coracao.png')} style={{...styles.image, height: 39, }}/>                
             </Link>
           </TouchableOpacity>
         </View>
@@ -37,7 +37,7 @@ export default function MenuInferior({ navigateTo }) {
         <View>
           <TouchableOpacity style={styles.option} activeOpacity={0.7}>
             <Link href={'/screens/mais'}>
-              <Image source={require('../../assets/icons/mais.svg')} style={styles.image}/>                
+              <Image source={require('../../assets/icons/mais.png')} style={styles.image}/>                
             </Link>
           </TouchableOpacity>        
         </View>
@@ -49,13 +49,12 @@ export default function MenuInferior({ navigateTo }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFCB69',
-    
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+    left:0,
+    right: 0,
   },
   main: {
     display: 'flex',
@@ -63,11 +62,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 10,    
-    
   },
   image: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 35,
   },
   option: {
     flex: 1,

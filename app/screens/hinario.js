@@ -76,8 +76,7 @@ export default function Hinario({ navigateTo }) {
                 ))}   
 
                 </View>
-            </View>
-        <MenuInferior/>
+            </View>        
     </View>
   )
 }

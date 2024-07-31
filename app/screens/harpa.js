@@ -77,8 +77,7 @@ export default function Harpa({ navigateTo }) {
                 ))}   
 
                 </View>
-            </View>
-        <MenuInferior/>
+            </View>        
     </View>
   )
 }

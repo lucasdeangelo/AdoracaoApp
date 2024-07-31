@@ -28,7 +28,7 @@ export default function Adoracao({ navigateTo }) {
               <Image source={require('../../assets/images/harpa-crista.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#BA9D36"}}>Harpa Cristã</Text>
-                <Text style={{...styles.cardTxt, color: "#B8AB7D"}}>Encontre todos os hinos da Harpa <br/>Cristã e adore a Deus com alegria!</Text>
+                <Text style={{...styles.cardTxt, color: "#B8AB7D"}}>Encontre todos os hinos da Harpa {'\n'}Cristã e adore a Deus com alegria!</Text>
               </View>              
             </TouchableOpacity> 
             
@@ -37,7 +37,7 @@ export default function Adoracao({ navigateTo }) {
               <Image source={require('../../assets/images/homem-cantando.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#26516E"}}>Hinos Cristãos</Text>
-                <Text style={{...styles.cardTxt, color: "#5F8BA9"}}>Encontre todos os Hinos Cristãos <br/>e adore a Deus com alegria!</Text>
+                <Text style={{...styles.cardTxt, color: "#5F8BA9"}}>Encontre todos os Hinos Cristãos {'\n'}e adore a Deus com alegria!</Text>
               </View>
             </TouchableOpacity>
 
@@ -45,7 +45,7 @@ export default function Adoracao({ navigateTo }) {
               <Image source={require('../../assets/images/pexels-thirdman-6193846.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#FF8282"}}>Coros Cristãos</Text>
-                <Text style={{...styles.cardTxt, color: "#E39393"}}>Encontre todos os Coros Cristãos <br/>e adore a Deus com alegria!</Text>
+                <Text style={{...styles.cardTxt, color: "#E39393"}}>Encontre todos os Coros Cristãos {'\n'}e adore a Deus com alegria!</Text>
               </View>
             </Link>
 
@@ -53,12 +53,11 @@ export default function Adoracao({ navigateTo }) {
               <Image source={require('../../assets/images/partitura.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#459041"}}>Cifras Cristãos</Text>
-                <Text style={{...styles.cardTxt, color: "#64A95F"}}>Veja todas as Cifras dos hinos <br/>Cristãos e toque ao Senhor!</Text>
+                <Text style={{...styles.cardTxt, color: "#64A95F"}}>Veja todas as Cifras dos hinos {'\n'}Cristãos e toque ao Senhor!</Text>
               </View>
             </Link>
           </View>
-        </View>
-        <MenuInferior/>
+        </View>        
       </View>
     </View>
   )

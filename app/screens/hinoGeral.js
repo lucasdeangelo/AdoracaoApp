@@ -51,9 +51,7 @@ export default function HinoGeral({ selectedHino, navigateTo }) {
               {formatText(verse)}              
             </View>
           ))}
-        </ScrollView>
-
-        <MenuInferior/>
+        </ScrollView>        
     </View>
   )
 }
@@ -62,6 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    marginBottom: 60
   },
   h2: {
     fontSize: 24,
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
-    backgroundColor: '#FFCB69',
+    backgroundColor: '#26516E',
     paddingVertical: 5,
     paddingHorizontal: 14,
     borderRadius: 5

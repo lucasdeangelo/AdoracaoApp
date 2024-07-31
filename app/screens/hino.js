@@ -56,7 +56,7 @@ export default function Hino({ selectedHino, navigateTo }) {
           ))}
         </ScrollView>
 
-        <MenuInferior/>
+        
     </View>
   )
 }

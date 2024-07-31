@@ -1,7 +1,9 @@
 {
   "expo": {
     "scheme": "acme",
-    "web": { "bundler": "metro" },
+    "web": {
+      "bundler": "metro"
+    },
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -9,7 +11,16 @@
     },
     "android": {
       "adaptativeIcon": "./assets/images/adaptative-icon.png",
-      "backgroundColor": "#FFFFFF"
+      "backgroundColor": "#FFFFFF",
+      "package": "com.devlucasdeangelo.adoracaoapp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7fb8612e-d933-4295-ade4-8de08a6be8be"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.devlucasdeangelo.adoracaoapp"
     }
   }
 }

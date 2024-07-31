@@ -1,18 +1,23 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3333';
+const api = axios.create({
+  baseURL: 'http://10.0.3.2:3333/',
+  timeout: 10000
+});
 
-export const registerUser = (createUser) => {
-  return axios.post(`${API_URL}/user`, createUser);
+export const registerUser = async () => {
+  const response = await api.post('/user');
+  return response.data;
 };
 
-export const userLogin = (loginUser) => {
-  return axios.post(`${API_URL}/login`, loginUser)
+export const userLogin = async () => {
+  const response = await api.post('/login');
+  return response.data;
 };
 
 export const fetchHinos = async () => {
   try {
-    const response = await axios.get(`${API_URL}/hinosHarpa`);
+    const response = await api.get('/hinosHarpa');
     return response.data;
   } catch (error) {
     console.error('Erro ao obter hinos:', error);
@@ -22,7 +27,7 @@ export const fetchHinos = async () => {
 
 export const fetchHinoByNumero = async (numero) => {
   try {
-    const response = await axios.get(`${API_URL}/hinosHarpa/${numero}`);
+    const response = await api.get('/hinosHarpa/${numero}');
     return response.data;
   } catch (error) {
     console.error('Erro ao obter hino:', error);
@@ -32,7 +37,7 @@ export const fetchHinoByNumero = async (numero) => {
 
 export const fetchHinosGeral = async () => {
   try {
-    const response = await axios.get(`${API_URL}/hinario`);
+    const response = await api.get('/hinario');
     return response.data;
   } catch (error) {
     console.error('Erro ao obter hinos:', error);

@@ -65,6 +65,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    marginBottom: 60,
+    marginTop: 10
   },
   h2: {
     fontSize: 24,
@@ -88,7 +90,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     backgroundColor: '#FFCB69',
-    paddingVertical: 5,
+    paddingTop: 3,
+    paddingBottom: 5,
     paddingHorizontal: 14,
     borderRadius: 5
   },
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: 'Nunito_500Medium',
     color: '#B8AB7D',
-    lineHeight: 12
+    lineHeight: 17
   },
   coro: {
     fontSize: 44,

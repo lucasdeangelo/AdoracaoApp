@@ -41,7 +41,7 @@ export default function Adoracao({ navigateTo }) {
               </View>
             </TouchableOpacity>
 
-            <Link href={'/screens/coros'} style={{...styles.card, backgroundColor: "#FFE9E9",}}> 
+            {/* <Link href={'/screens/coros'} style={{...styles.card, backgroundColor: "#FFE9E9",}}> 
               <Image source={require('../../assets/images/pexels-thirdman-6193846.jpg')} style={styles.image}/>
               <View style={{justifyContent: "center", paddingLeft: 15}}>
                 <Text style={{...styles.cardTitle, color: "#FF8282"}}>Coros Cristãos</Text>
@@ -55,7 +55,7 @@ export default function Adoracao({ navigateTo }) {
                 <Text style={{...styles.cardTitle, color: "#459041"}}>Cifras Cristãos</Text>
                 <Text style={{...styles.cardTxt, color: "#64A95F"}}>Veja todas as Cifras dos hinos {'\n'}Cristãos e toque ao Senhor!</Text>
               </View>
-            </Link>
+            </Link> */}
           </View>
         </View>        
       </View>

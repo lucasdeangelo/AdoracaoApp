@@ -1,14 +1,17 @@
 import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Link, useRouter } from 'expo-router';
+import { AuthContext } from '../contexts/AuthContext'; 
 import { userLogin } from '../api/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Login() {
+export default function Login({ navigateTo }) {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Poppins_700Bold
@@ -22,16 +25,29 @@ export default function Login() {
     const loginUser = {
       email,
       password
-    }
+    };
+    
     userLogin(loginUser)
-      .then(response => {
-        router.push('screens/dashboard');
+      .then(async response => {
+        if (response.token) {
+          const token = response.token; 
+          await AsyncStorage.setItem('userToken', token);
+          login(token);
+          navigateTo('Dashboard');
+        } else {
+          Alert.alert('Erro', 'Token não encontrado. Verifique as credenciais e tente novamente.');
+        }
+  
       })
       .catch(error => {
-        Alert.alert('Erro', 'Erro ao Entrar. Tente novamente.');
-        console.error(error);
+        if (error.response && error.response.status === 401) {
+          Alert.alert('Erro', 'Credenciais inválidas. Por favor, tente novamente.');
+        } else {
+          Alert.alert('Erro', 'Erro ao Entrar. Tente novamente.');
+        }
       });
   };
+
 
   return (
     <View>
@@ -65,10 +81,10 @@ export default function Login() {
             />
           </View>
 
-          <TouchableOpacity style={styles.btn} activeOpacity={0.7} onPress={handleLogin}>Entrar</TouchableOpacity>
+          <TouchableOpacity style={styles.btn} activeOpacity={0.7} onPress={handleLogin}><Text style={{ color: '#FFFFFF', fontFamily: 'Nunito_500Medium' }}>Entrar</Text></TouchableOpacity>
 
           <View style={{textAlign: 'center', paddingTop: 20}}>
-            <Text style={styles.h3}>Não tem conta ainda? <Link style={styles.span} href={'/screens/cadastro'}>Criar Agora</Link></Text>
+            <Text style={styles.h3}>Não tem conta ainda? <Text style={styles.span} onPress={() => navigateTo('Cadastro')}>Criar Agora</Text></Text>
           </View>
         </View>
       </View>

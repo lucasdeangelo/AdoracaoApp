@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://10.0.3.2:3333/',
+  baseURL: 'http://localhost:3333/',
   timeout: 10000
 });
 
@@ -10,10 +10,23 @@ export const registerUser = async () => {
   return response.data;
 };
 
-export const userLogin = async () => {
-  const response = await api.post('/login');
-  return response.data;
+export const userLogin = async (loginUser) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:3333/login', 
+      loginUser,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );    
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
 };
+
 
 export const fetchHinos = async () => {
   try {

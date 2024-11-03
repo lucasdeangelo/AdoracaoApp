@@ -5,7 +5,7 @@ import { Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { Link, useRouter } from 'expo-router';
 import { registerUser } from '../api/api';
 
-export default function Cadastro() {
+export default function Cadastro({ navigateTo }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

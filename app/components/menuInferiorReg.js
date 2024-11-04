@@ -30,7 +30,7 @@ export default function MenuInferiorReg({ navigateTo }) {
         </View>
 
         <View>
-          <TouchableOpacity onPress={() => navigateTo('Mais')} style={styles.option} activeOpacity={0.7}>            
+          <TouchableOpacity onPress={() => navigateTo('MaisReg')} style={styles.option} activeOpacity={0.7}>            
               <Image source={require('../../assets/icons/mais.png')} style={styles.image}/>                
           </TouchableOpacity>        
         </View>

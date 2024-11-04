@@ -3,7 +3,7 @@ import React from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
 
-export default function Mais() {
+export default function MaisReg() {
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Poppins_700Bold
@@ -12,6 +12,7 @@ export default function Mais() {
   if (!fontLoaded) {
     return null;
   };
+
   return (
     <View>
       <View>
@@ -23,7 +24,7 @@ export default function Mais() {
             
             <TouchableOpacity style={styles.item} activeOpacity={0.7}>Redefinir Senha</TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Notificações</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Criar Grupo</TouchableOpacity>
 
             <TouchableOpacity style={styles.item} activeOpacity={0.7}>Mudar Harpa</TouchableOpacity>
           </View>

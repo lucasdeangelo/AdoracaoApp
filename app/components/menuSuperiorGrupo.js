@@ -3,7 +3,7 @@ import React from 'react'
 import { useFonts, Nunito_600SemiBold } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
 
-export default function MenuSuperior({ navigateTo }) {
+export default function MenuSuperiorGrupo({ navigateTo }) {
     const [fontLoaded] = useFonts({
         Nunito_600SemiBold,
         Poppins_700Bold
@@ -20,9 +20,14 @@ export default function MenuSuperior({ navigateTo }) {
             </View>
 
             <View style={styles.btn}>
+                <TouchableOpacity onPress={() => navigateTo('Favoritos')}>            
+                    <Image source={require('../../assets/icons/coracao-yellow.svg')} style={{marginRight: 15, top: 5}}/>
+                </TouchableOpacity> 
+                              
                 <TouchableOpacity onPress={() => navigateTo('Notificacao')}>            
                     <Image source={require('../../assets/icons/notification.svg')} />
-                </TouchableOpacity>                
+                </TouchableOpacity>   
+
             </View>
         </View>
     </View>
@@ -65,6 +70,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         top: 10,
-        left: 365
+        left: 310
     }
 })

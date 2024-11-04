@@ -24,35 +24,43 @@ import GrupoReg from './screens/grupoReg';
 import GrupoComp from './screens/grupoComp';
 import HinarioReg from './screens/hinarioReg';
 import HinarioComp from './screens/hinarioComp';
+import Notificacoes from './screens/notificacoes';
 import MenuInferiorAdorador from './components/menuInferior';
 import MenuInferiorReg from './components/menuInferiorReg';
 import MenuInferiorComp from './components/menuInferiorComp';
+import MenuSuperiorAdorador from './components/menuSuperior';
+import MenuSuperiorGrupo from './components/menuSuperiorGrupo';
 
 const userScreens = {
   Adorador: {
     dashboard: Dashboard,
+    menuSuperior: MenuSuperiorAdorador,
     menuInferior: MenuInferiorAdorador,
-    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais, Notificacoes],
   },
   Músico: {
     dashboard: Dashboard,
+    menuSuperior: MenuSuperiorAdorador,
     menuInferior: MenuInferiorAdorador,
-    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais, Notificacoes],
   },
   Cantor: {
     dashboard: DashboardCantor,
+    MenuSuperior: MenuSuperiorAdorador,
     menuInferior: MenuInferiorAdorador,
-    screens: [EventosCantor, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais],
+    screens: [EventosCantor, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais, Notificacoes],
   },
   Regente: {
     dashboard: DashboardGrupo,
+    menuSuperior: MenuSuperiorGrupo,
     menuInferior: MenuInferiorReg,
-    screens: [EnsaiosReg, EventosReg, GrupoReg, HinarioReg, Adoracao, Pesquisa, Mais],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, EnsaiosReg, EventosReg, GrupoReg, HinarioReg, Adoracao, Pesquisa,Favoritos, Mais, Notificacoes],
   },
   Componente: {
     dashboard: DashboardGrupo,
+    menuSuperior: MenuSuperiorGrupo,
     menuInferior: MenuInferiorComp,
-    screens: [EnsaiosComp, EventosComp, GrupoComp, HinarioComp, Adoracao, Pesquisa, Favoritos, Mais],
+    screens: [EnsaiosComp, EventosComp, GrupoComp, HinarioComp, Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais, Notificacoes],
   },
 };
 
@@ -89,7 +97,7 @@ function Page() {
   };
 
   const userType = user?.userType;
-  const { dashboard: DashboardComponent, menuInferior: MenuComponent } = userScreens[userType] || {};
+  const { dashboard: DashboardComponent, menuInferior: MenuInferiorComponent, menuSuperior: MenuSuperiorComponent } = userScreens[userType] || {};
 
   let ScreenComponent;
 
@@ -100,9 +108,10 @@ function Page() {
   } else {
     ScreenComponent = userScreens[userType]?.screens.find(screen => screen.name === currentScreen) || DashboardComponent;
   }
-
+  
   return (
     <View style={styles.container}>
+      {user && MenuSuperiorComponent && <MenuSuperiorComponent navigateTo={navigateTo} />}
       <ScreenComponent
         navigateTo={navigateTo}
         selectedHino={selectedHino}
@@ -110,7 +119,7 @@ function Page() {
         onLogin={handleLogin}
         onLogout={handleLogout}
       />
-      {user && MenuComponent && <MenuComponent navigateTo={navigateTo} />}
+      {user && MenuInferiorComponent && <MenuInferiorComponent navigateTo={navigateTo} />}
     </View>
   );
 }

@@ -2,9 +2,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
-import MenuInferior from '../components/menuInferior';
-import MenuSuperior from '../components/menuSuperior';
-import { Link } from 'expo-router';
 
 export default function Adoracao({ navigateTo }) {
   const [fontLoaded] = useFonts({
@@ -18,8 +15,7 @@ export default function Adoracao({ navigateTo }) {
   
   return (
     <View>
-      <View>
-        <MenuSuperior/>
+      <View>        
         <View>
           <Text style={{paddingLeft: 15, ...styles.h2}}>Adoração</Text>
 

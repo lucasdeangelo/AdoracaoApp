@@ -28,24 +28,23 @@ export default function Login({ navigateTo }) {
     };
     
     userLogin(loginUser)
-      .then(async response => {
-        if (response.token) {
-          const token = response.token; 
-          await AsyncStorage.setItem('userToken', token);
-          login(token);
-          navigateTo('Dashboard');
-        } else {
-          Alert.alert('Erro', 'Token não encontrado. Verifique as credenciais e tente novamente.');
-        }
-  
-      })
-      .catch(error => {
-        if (error.response && error.response.status === 401) {
-          Alert.alert('Erro', 'Credenciais inválidas. Por favor, tente novamente.');
-        } else {
-          Alert.alert('Erro', 'Erro ao Entrar. Tente novamente.');
-        }
-      });
+    .then(response => {
+      console.log('Resposta da API:', response);
+      const { token, userType } = response; 
+      console.log('Token recebido:', token);
+      console.log('Tipo de usuário recebido:', userType);
+
+      if (token && userType) {
+        login({ token, userType });
+        navigateTo('Dashboard'); 
+      } else {
+        Alert.alert('Erro', 'Token ou tipo de usuário ausente. Verifique as credenciais.');
+      }
+    })
+    .catch(error => {
+      Alert.alert('Erro', 'Erro ao fazer login. Verifique as credenciais.');
+      console.error('Erro de login:', error);
+    });
   };
 
 
@@ -83,9 +82,9 @@ export default function Login({ navigateTo }) {
 
           <TouchableOpacity style={styles.btn} activeOpacity={0.7} onPress={handleLogin}><Text style={{ color: '#FFFFFF', fontFamily: 'Nunito_500Medium' }}>Entrar</Text></TouchableOpacity>
 
-          <View style={{textAlign: 'center', paddingTop: 20}}>
-            <Text style={styles.h3}>Não tem conta ainda? <Text style={styles.span} onPress={() => navigateTo('Cadastro')}>Criar Agora</Text></Text>
-          </View>
+          <TouchableOpacity onPress={() => navigateTo('Cadastro')} style={{textAlign: 'center', paddingTop: 20}}>
+            <Text style={styles.h3}>Não tem conta ainda? <Text style={styles.span} >Criar Agora</Text></Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

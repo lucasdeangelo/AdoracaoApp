@@ -12,6 +12,9 @@ import Harpa from './screens/harpa';
 import Hino from './screens/hino';
 import Hinario from './screens/hinario'; 
 import HinoGeral from './screens/hinoGeral';
+import Pesquisa from './screens/pesquisa';
+import Favoritos from './screens/favoritos';
+import Mais from './screens/mais';
 import EnsaiosReg from './screens/ensaiosReg';
 import EnsaiosComp from './screens/ensaiosComp';
 import EventosCantor from './screens/eventosCantor';
@@ -29,27 +32,27 @@ const userScreens = {
   Adorador: {
     dashboard: Dashboard,
     menuInferior: MenuInferiorAdorador,
-    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais],
   },
   Músico: {
     dashboard: Dashboard,
     menuInferior: MenuInferiorAdorador,
-    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais],
   },
   Cantor: {
     dashboard: DashboardCantor,
     menuInferior: MenuInferiorAdorador,
-    screens: [EventosCantor, Harpa, Hino, Hinario, HinoGeral],
+    screens: [EventosCantor, Harpa, Hino, Hinario, HinoGeral, Pesquisa, Favoritos, Mais],
   },
   Regente: {
     dashboard: DashboardGrupo,
     menuInferior: MenuInferiorReg,
-    screens: [EnsaiosReg, EventosReg, GrupoReg, HinarioReg, Adoracao],
+    screens: [EnsaiosReg, EventosReg, GrupoReg, HinarioReg, Adoracao, Pesquisa, Mais],
   },
   Componente: {
     dashboard: DashboardGrupo,
     menuInferior: MenuInferiorComp,
-    screens: [EnsaiosComp, EventosComp, GrupoComp, HinarioComp, Adoracao],
+    screens: [EnsaiosComp, EventosComp, GrupoComp, HinarioComp, Adoracao, Pesquisa, Favoritos, Mais],
   },
 };
 
@@ -58,8 +61,6 @@ function Page() {
   const [currentScreen, setCurrentScreen] = useState('Dashboard');
   const [selectedHino, setSelectedHino] = useState(null);
   const [selectedHinoGeral, setSelectedHinoGeral] = useState(null);
-
-  console.log('Tipo de usuário atual:', user?.userType);
 
   const navigateTo = (screen, hino = null, hinoGeral = null) => {
     setSelectedHino(hino);

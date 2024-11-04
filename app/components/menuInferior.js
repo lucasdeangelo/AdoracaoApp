@@ -1,6 +1,5 @@
 import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Link } from 'expo-router';
 
 export default function MenuInferior({ navigateTo }) {
   return (
@@ -19,26 +18,20 @@ export default function MenuInferior({ navigateTo }) {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.option} activeOpacity={0.7}>
-            <Link href={'/screens/pesquisa'}>
-              <Image source={require('../../assets/icons/lupa.png')} style={styles.image}/>                
-            </Link>
+          <TouchableOpacity onPress={() => navigateTo('Pesquisa')} style={styles.option} activeOpacity={0.7}>            
+            <Image source={require('../../assets/icons/lupa.png')} style={styles.image}/>                
           </TouchableOpacity>
         </View>
 
         <View>
-          <TouchableOpacity style={styles.option} activeOpacity={0.7}>
-            <Link href={'/screens/favoritos'}>
-              <Image source={require('../../assets/icons/coracao.png')} style={{...styles.image, height: 39, }}/>                
-            </Link>
+          <TouchableOpacity onPress={() => navigateTo('Favoritos')} style={styles.option} activeOpacity={0.7}>            
+            <Image source={require('../../assets/icons/coracao.png')} style={{...styles.image, height: 39, }}/>                
           </TouchableOpacity>
         </View>
 
         <View>
-          <TouchableOpacity style={styles.option} activeOpacity={0.7}>
-            <Link href={'/screens/mais'}>
+          <TouchableOpacity onPress={() => navigateTo('Mais')} style={styles.option} activeOpacity={0.7}>            
               <Image source={require('../../assets/icons/mais.png')} style={styles.image}/>                
-            </Link>
           </TouchableOpacity>        
         </View>
       </View>

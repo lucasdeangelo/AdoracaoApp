@@ -28,12 +28,8 @@ export default function Login({ navigateTo }) {
     };
     
     userLogin(loginUser)
-    .then(response => {
-      console.log('Resposta da API:', response);
-      const { token, userType } = response; 
-      console.log('Token recebido:', token);
-      console.log('Tipo de usuário recebido:', userType);
-
+    .then(response => {      
+      const { token, userType } = response;    
       if (token && userType) {
         login({ token, userType });
         navigateTo('Dashboard'); 

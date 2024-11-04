@@ -18,11 +18,6 @@ export default function MenuSuperior() {
         <View style={styles.main}>
             <View style={styles.profile}>
                 <Image source={require('../../assets/icons/perfil-1.svg')} style={styles.profileiImg}/>
-                
-                <View style={styles.txt}>
-                    <Text style={styles.h4}>Lucas</Text>
-                    <Text style={styles.h6}>Adorador</Text>
-                </View>
             </View>
 
             <View style={styles.btn}>

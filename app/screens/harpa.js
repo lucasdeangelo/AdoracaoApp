@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from 'r
 import React, { useEffect, useState } from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold , Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import MenuInferior from '../components/menuInferior';
-import MenuSuperior from '../components/menuSuperior';
 import { fetchHinos } from '../api/api'
 
 export default function Harpa({ navigateTo }) {
@@ -50,34 +48,34 @@ export default function Harpa({ navigateTo }) {
 
   return (
     <View style={styles.container}>      
-        <MenuSuperior/>
-            <View>
-              <View style={styles.titleContainer}>
-                <TouchableOpacity onPress={() => navigateTo('Adoracao')}>
-                  <Text style={styles.backButton}>&#60;</Text>
-                </TouchableOpacity>    
+      <View>
+        <View style={styles.titleContainer}>
+          <TouchableOpacity onPress={() => navigateTo('Adoracao')}>
+            <Text style={styles.backButton}>&#60;</Text>
+          </TouchableOpacity>    
 
-                <Text style={{paddingLeft: 15, ...styles.h2}}>Harpa Cristã</Text>
-              </View>
-                <View>
-                <TextInput
-                  style={styles.searchBar}
-                  placeholder="&#x1F50D; Buscar hino..."
-                  value={searchText}
-                  onChangeText={text => setSearchText(text)}
-                />
-                {filteredHinos.map((hino) => (
-                  <TouchableOpacity
-                    key={hino.numero}
-                    data={filteredHinos}
-                    onPress={() => navigateTo('Hino', hino)}
-                  >
-                    <Text style={styles.item}>{hino.numero} - {hino.titulo}</Text>
-                  </TouchableOpacity>
-                ))}   
+          <Text style={{paddingLeft: 15, ...styles.h2}}>Harpa Cristã</Text>
+        </View>
+        
+        <View>
+          <TextInput
+            style={styles.searchBar}
+            placeholder="&#x1F50D; Buscar hino..."
+            value={searchText}
+            onChangeText={text => setSearchText(text)}
+          />
+          {filteredHinos.map((hino) => (
+            <TouchableOpacity
+              key={hino.numero}
+              data={filteredHinos}
+              onPress={() => navigateTo('Hino', hino)}
+            >
+              <Text style={styles.item}>{hino.numero} - {hino.titulo}</Text>
+            </TouchableOpacity>
+          ))}   
 
-                </View>
-            </View>        
+        </View>
+      </View>        
     </View>
   )
 }

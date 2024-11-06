@@ -16,6 +16,7 @@ import Pesquisa from './screens/pesquisa';
 import Favoritos from './screens/favoritos';
 import Mais from './screens/mais';
 import MaisReg from './screens/maisReg';
+import CriarGrupo from './screens/criarGrupo';
 import EnsaiosReg from './screens/ensaiosReg';
 import EnsaiosComp from './screens/ensaiosComp';
 import EventosCantor from './screens/eventosCantor';
@@ -56,7 +57,7 @@ const userScreens = {
     dashboard: DashboardGrupo,
     menuSuperior: MenuSuperiorGrupo,
     menuInferior: MenuInferiorReg,
-    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, EnsaiosReg, EventosReg, GrupoReg, HinarioReg, Componentes, Adoracao, Pesquisa, Favoritos, MaisReg, Notificacoes],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, EnsaiosReg, EventosReg, GrupoReg, HinarioReg, Componentes, Adoracao, Pesquisa, Favoritos, MaisReg, CriarGrupo, Notificacoes],
   },
   Componente: {
     dashboard: DashboardGrupo,

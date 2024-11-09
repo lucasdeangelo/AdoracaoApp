@@ -16,7 +16,6 @@ export default function HinarioReg({ navigateTo }) {
     const getHinario = async () => {
       try {
         const data = await fetchHinarioGrupo(id_grupo);
-        console.log("Dados recebidos de fetchHinarioGrupo:", data);
         setHinosGrupo(data);
         setFilteredHinos(data); 
       } catch (error) {
@@ -61,16 +60,19 @@ export default function HinarioReg({ navigateTo }) {
           </TouchableOpacity>    
 
           <Text style={{paddingLeft: 15, ...styles.h2}}>Hinário</Text>
+
+          <TouchableOpacity onPress={() => navigateTo('AdicionarHino')}>
+            <Text style={{...styles.backButton, ...styles.btn}}>+</Text>
+          </TouchableOpacity>
         </View>
 
         <View>
           <TextInput
             style={styles.searchBar}
-            placeholder="Buscar hino..."
+            placeholder="&#x1F50D; Buscar hino..."
             value={searchText}
             onChangeText={text => setSearchText(text)}
           />
-          {console.log("Hinos filtrados para exibição:", filteredHinos)}
           {filteredHinos.length > 0 ? (
             filteredHinos.map((hino) => (
               <TouchableOpacity
@@ -78,7 +80,7 @@ export default function HinarioReg({ navigateTo }) {
                 data={filteredHinos}
                 onPress={() => navigateTo('HinarioGrupo', hino)}
               >
-                <Text style={styles.item}>{hino.titulo}</Text>
+                <Text style={styles.item}>{hino.titulo} - {hino.autor}</Text>
               </TouchableOpacity>
             ))
           ) : (
@@ -139,4 +141,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 5
   },
+  btn: {
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'absolute',
+    left: 195
+}
 })

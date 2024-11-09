@@ -68,7 +68,8 @@ export default function Hinario({ navigateTo }) {
               data={filteredHinos}
               onPress={() => navigateTo('HinoGeral', hino)}
             >
-              <Text style={styles.item}>{hino.titulo}</Text>
+              <Text style={styles.item}>{hino.titulo} - {hino.autor}
+              </Text>
             </TouchableOpacity>
           ))}  
 

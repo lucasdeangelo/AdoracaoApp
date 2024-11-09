@@ -57,3 +57,15 @@ export const fetchHinosGeral = async () => {
     throw error;
   }
 };
+
+export const fetchHinarioGrupo = async (id_grupo) => {
+  try {
+    const response = await api.get(`/grupo/${id_grupo}/hinos`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao obter hinos do grupo:', error);
+    throw error;
+  }
+};
+
+

@@ -59,9 +59,7 @@ export default function HinoGeral({ selectedHino, navigateTo }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     marginBottom: 60,
-    marginTop: 10
   },
   h2: {
     fontSize: 24,
@@ -71,7 +69,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F1FBFF',
     paddingLeft: 20,
     marginTop: 15,
-    borderRadius: 15
+    borderRadius: 15,
+    margin: 20,
   },
   title: {
     fontSize: 16,
@@ -111,6 +110,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_700Bold' 
   },
   titleContainer:{
+    paddingVertical: 10,
+    paddingLeft: 10,
     display: 'flex',
     flexDirection: 'row'
   },

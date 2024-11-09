@@ -1,12 +1,45 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { fetchHinarioGrupo } from '../api/api';
+import { AuthContext } from '../contexts/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HinarioReg({ navigateTo }) {
+  const { id_grupo } = useContext(AuthContext);   
   const [hinosGrupo, setHinosGrupo] = useState([]);
   const [filteredHinos, setFilteredHinos] = useState([]);
   const [searchText, setSearchText] = useState('');
+
+  useEffect(() => {
+    const getHinario = async () => {
+      try {
+        const data = await fetchHinarioGrupo(id_grupo);
+        console.log("Dados recebidos de fetchHinarioGrupo:", data);
+        setHinosGrupo(data);
+        setFilteredHinos(data); 
+      } catch (error) {
+        console.error('Erro ao obter hinos:', error);
+      }
+    };
+    getHinario();
+    
+  }, [id_grupo]);
+  
+  const removeAccents = (str) => {
+    return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : '';
+  };
+
+  useEffect(() => {
+    const filtered = hinosGrupo.filter(hino => 
+      removeAccents(hino.titulo && hino.titulo.toLowerCase()).includes(removeAccents(searchText.toLowerCase()))
+
+    );
+    setFilteredHinos(filtered);
+  }, [searchText, hinosGrupo]);
+  
+
 
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
@@ -33,10 +66,24 @@ export default function HinarioReg({ navigateTo }) {
         <View>
           <TextInput
             style={styles.searchBar}
-            placeholder="&#x1F50D; Buscar hino..."
+            placeholder="Buscar hino..."
             value={searchText}
             onChangeText={text => setSearchText(text)}
           />
+          {console.log("Hinos filtrados para exibição:", filteredHinos)}
+          {filteredHinos.length > 0 ? (
+            filteredHinos.map((hino) => (
+              <TouchableOpacity
+                key={hino.numero}
+                data={filteredHinos}
+                onPress={() => navigateTo('HinarioGrupo', hino)}
+              >
+                <Text style={styles.item}>{hino.titulo}</Text>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text>Nenhum hino encontrado.</Text>
+          )}
         </View>
       </View>
     </View>
@@ -69,9 +116,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginBottom: 12,
     borderRadius: 10,
-    backgroundColor: '#F1FBFF',
+    backgroundColor: '#FFFAE1',
     fontFamily: 'Poppins_600SemiBold',  
-    color: '#26516E'
+    color: '#BA9D36'
   },
   title: {
     fontSize: 18,

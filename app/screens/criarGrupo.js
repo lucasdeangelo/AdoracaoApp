@@ -6,7 +6,7 @@ import axios from 'axios';
 import { AuthContext } from '../contexts/AuthContext';
 
 export default function CriarGrupo({ navigateTo}) {
-    const { user } = useContext(AuthContext); 
+    const { user, saveGrupoId } = useContext(AuthContext); 
     const regenteId = user?.id_user;        
       
     const [groupName, setGroupName] = useState('');
@@ -30,6 +30,11 @@ export default function CriarGrupo({ navigateTo}) {
           typeGroup: groupType,
           regenteId, 
         });
+
+        const newGrupoId = response.data.grupoId;
+        console.log("Novo grupoId recebido:", newGrupoId);
+        saveGrupoId(newGrupoId);  
+
         Alert.alert('Sucesso', response.data.message);
         setGroupName('');
         setGroupLocal('');

@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { fetchHinarioGrupo } from '../api/api';
+import { fetchHinarioGrupo, removeHinoFromGrupo } from '../api/api';
 import { AuthContext } from '../contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,6 +25,17 @@ export default function HinarioReg({ navigateTo }) {
     getHinario();
     
   }, [id_grupo]);
+
+  const handleRemoveHino = async (id_hino) => {
+    try {
+      await removeHinoFromGrupo(id_grupo, id_hino);
+      Alert.alert('Sucesso', 'Hino removido do grupo com sucesso!');
+      setHinosGrupo(hinosGrupo.filter(hino => hino._id !== id_hino));
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao remover hino do grupo.');
+      console.error(error);
+    }
+  };
   
   const removeAccents = (str) => {
     return str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : '';
@@ -77,10 +88,14 @@ export default function HinarioReg({ navigateTo }) {
             filteredHinos.map((hino) => (
               <TouchableOpacity
                 key={hino.numero}
+                style={styles.lista}
                 data={filteredHinos}
                 onPress={() => navigateTo('HinarioGrupo', hino)}
               >
                 <Text style={styles.item}>{hino.titulo} - {hino.autor}</Text>
+                <TouchableOpacity onPress={() => handleRemoveHino(hino._id)} style={styles.removeButton}>
+                  <Image style={styles.removeButtonText} source={require('../../assets/icons/lixo.png')}/>
+                </TouchableOpacity>
               </TouchableOpacity>
             ))
           ) : (
@@ -115,6 +130,7 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 18,
+    width: 360,
     marginHorizontal: 5,
     marginBottom: 12,
     borderRadius: 10,
@@ -131,6 +147,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row'
   },
+  lista: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'left',
+    alignItems: 'center',
+  },
   backButton: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -146,5 +168,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'absolute',
     left: 195
-}
+  },
+  removeButton: {
+    backgroundColor: '#FFCB69',
+    borderRadius: 15,
+    marginLeft: 8,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30
+  },
+  removeButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
 })

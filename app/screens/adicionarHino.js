@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, FlatList } 
 import React, { useState, useEffect, useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { fetchHinosGeral } from '../api/api'; 
+import { fetchHinosGeral, fetchHinarioGrupo } from '../api/api'; 
 import { AuthContext } from '../contexts/AuthContext';
 import axios from 'axios';
 
@@ -11,34 +11,52 @@ export default function AdicionarHino({ navigateTo }) {
     const [hinos, setHinos] = useState([]);
     const [filteredHinos, setFilteredHinos] = useState([]);
     const [searchText, setSearchText] = useState('');
+    const [hinosExistentes, setHinosExistentes] = useState([]);
 
     useEffect(() => {
-        const getHinos = async () => {
-          try {
-            const data = await fetchHinosGeral(); 
-            setHinos(data);
-            setFilteredHinos(data);
-          } catch (error) {
-            console.error('Erro ao obter hinos:', error);
-          }
-        };
-        getHinos();
-    }, []);
+      // Busca os hinos do hinário do grupo para evitar duplicação
+      const loadHinarioGrupo = async () => {
+        try {
+          const existingHinos = await fetchHinarioGrupo(id_grupo);
+          setHinosExistentes(existingHinos.map(hino => hino._id)); // Armazena apenas os IDs dos hinos
+        } catch (error) {
+          console.error('Erro ao carregar o hinário do grupo:', error);
+        }
+      };
+  
+      // Carrega todos os hinos disponíveis para adição
+      const loadHinos = async () => {
+        try {
+          const allHinos = await fetchHinosGeral();
+          setHinos(allHinos);
+          setFilteredHinos(allHinos);
+        } catch (error) {
+          console.error('Erro ao carregar hinos:', error);
+        }
+      };
+  
+      loadHinarioGrupo();
+      loadHinos();
+    }, [id_grupo]);
+    
+    const addHinoToGrupo = async (id_grupo, hinoId) => {
+      try {
+        const response = await axios.post(`http://localhost:3333/grupo/${id_grupo}/hinos`, { hinoId });
+        return response.data;
+      } catch (error) {
+        console.error('Erro ao adicionar hino ao grupo:', error);
+        throw error;
+      }
+    };
     
     const handleAddHino = async (hinoId) => {
-        const addHinoToGrupo = async (id_grupo, hinoId) => {
-          try {
-            const response = await axios.post(`http://localhost:3333/grupo/${id_grupo}/hinos`, { hinoId });
-            return response.data;
-          } catch (error) {
-            console.error('Erro ao adicionar hino ao grupo:', error);
-            throw error;
-          }
-        };
-    
         try {
           await addHinoToGrupo(id_grupo, hinoId);
           Alert.alert('Sucesso', 'Hino adicionado ao grupo com sucesso!');
+          
+          // Atualiza os estados para remover o hino adicionado da lista visível
+          setHinosExistentes([...hinosExistentes, hinoId]);
+          setFilteredHinos(filteredHinos.filter(hino => hino._id !== hinoId));
         } catch (error) {
           Alert.alert('Erro', 'Erro ao adicionar hino ao grupo.');
           console.error(error);
@@ -50,12 +68,13 @@ export default function AdicionarHino({ navigateTo }) {
     };
 
     useEffect(() => {
-        const filtered = hinos.filter(hino =>
-          removeAccents(hino.titulo && hino.titulo.toLowerCase()).includes(removeAccents(searchText.toLowerCase())) ||
-          hino.numero.toString().includes(searchText)
-        );
-        setFilteredHinos(filtered);
-      }, [searchText, hinos]);
+      const filtered = hinos.filter(hino => 
+        !hinosExistentes.includes(hino._id) && 
+        (removeAccents(hino.titulo.toLowerCase()).includes(removeAccents(searchText.toLowerCase())) || 
+        hino.numero.toString().includes(searchText))
+      );
+      setFilteredHinos(filtered);
+    }, [searchText, hinos, hinosExistentes]);
     
     const [fontLoaded] = useFonts({
         Nunito_500Medium,
@@ -66,8 +85,6 @@ export default function AdicionarHino({ navigateTo }) {
     if (!fontLoaded) {
         return null;
     }
-    
-    
     
   return (
     <View>

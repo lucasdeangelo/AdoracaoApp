@@ -68,4 +68,13 @@ export const fetchHinarioGrupo = async (id_grupo) => {
   }
 };
 
+export const removeHinoFromGrupo = async (id_grupo, id_hino) => {
+  try {
+    const response = await api.delete(`/grupo/${id_grupo}/hinos/${id_hino}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao remover hino do grupo:', error);
+    throw error;
+  }
+};
 

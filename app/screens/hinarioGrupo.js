@@ -32,7 +32,7 @@ export default function HinarioGrupo({ selectedHino, navigateTo }) {
   return (
     <View style={styles.container}>              
       <View style={styles.titleContainer}>
-        <TouchableOpacity onPress={() => navigateTo('HinarioReg')}>
+        <TouchableOpacity onPress={() => navigateTo('Dashboard')}>
           <Text style={styles.backButton}>&#60;</Text>
         </TouchableOpacity>    
         <Text style={{ paddingLeft: 15, ...styles.h2 }}>Hinário</Text>

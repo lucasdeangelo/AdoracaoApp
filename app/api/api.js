@@ -78,3 +78,32 @@ export const removeHinoFromGrupo = async (id_grupo, id_hino) => {
   }
 };
 
+export const fetchUsuariosParaComponentes = async () => {
+  try {
+    const response = await api.get('/user/componentes');
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar usuários para componentes:', error);
+    throw error;
+  }
+};
+
+export const fetchComponentes = async (id_grupo) => {
+  try {
+    const response = await api.get(`/user/grupo/${id_grupo}/componentes`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar usuários para componentes:', error);
+    throw error;
+  }
+};
+
+export const removeComponentFromGrupo = async (idUser) => {
+  try {
+    const response = await api.delete(`user/removeComponente/${idUser}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao remover hino do grupo:', error);
+    throw error;
+  }
+};

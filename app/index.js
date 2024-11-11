@@ -29,6 +29,7 @@ import AdicionarHino from './screens/adicionarHino';
 import HinarioComp from './screens/hinarioComp';
 import hinarioGrupo from './screens/hinarioGrupo';
 import Componentes from './screens/componentes';
+import AdicionarComp from './screens/adicionarComp';
 import Notificacoes from './screens/notificacoes';
 import MenuInferiorAdorador from './components/menuInferior';
 import MenuInferiorReg from './components/menuInferiorReg';
@@ -59,7 +60,7 @@ const userScreens = {
     dashboard: DashboardGrupo,
     menuSuperior: MenuSuperiorGrupo,
     menuInferior: MenuInferiorReg,
-    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, EnsaiosReg, EventosReg, GrupoReg, HinarioReg, hinarioGrupo, AdicionarHino, Componentes, Adoracao, Pesquisa, Favoritos, MaisReg, CriarGrupo, Notificacoes],
+    screens: [Adoracao, Harpa, Hino, Hinario, HinoGeral, EnsaiosReg, EventosReg, GrupoReg, HinarioReg, hinarioGrupo, AdicionarHino, Componentes, AdicionarComp, Adoracao, Pesquisa, Favoritos, MaisReg, CriarGrupo, Notificacoes],
   },
   Componente: {
     dashboard: DashboardGrupo,

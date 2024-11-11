@@ -100,7 +100,7 @@ export const fetchComponentes = async (id_grupo) => {
 
 export const removeComponentFromGrupo = async (idUser) => {
   try {
-    const response = await api.delete(`user/removeComponente/${idUser}`);
+    const response = await api.put(`user/removeComponente/${idUser}`);
     return response.data;
   } catch (error) {
     console.error('Erro ao remover hino do grupo:', error);

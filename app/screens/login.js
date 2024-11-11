@@ -30,8 +30,8 @@ export default function Login({ navigateTo }) {
     userLogin(loginUser)
     .then(response => {      
       const { token, id_user, userType, id_grupo } = response;    
-      if (token && id_user && userType && id_grupo) {
-        login({ token, id_user, userType, id_grupo });
+      if (token && id_user && userType) {
+        login({ token, id_user, userType, id_grupo: id_grupo || null });
         navigateTo('Dashboard'); 
       } else {
         Alert.alert('Erro', 'Token ou tipo de usuário ausente. Verifique as credenciais.');

@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function Mais() {
+  const { logout } = useContext(AuthContext);
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Poppins_700Bold, Poppins_600SemiBold
@@ -19,21 +21,37 @@ export default function Mais() {
           <Text style={{paddingLeft: 15, ...styles.h2}}>Mais</Text>
 
           <View style={{marginTop: 20}}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Editar Perfil</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Editar Perfil</Text>
+            </TouchableOpacity>
             
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Redefinir Senha</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Redefinir Senha</Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Notificações</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Notificações</Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Mudar Harpa</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Mudar Harpa</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={logout} style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Encerrar Sessão</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{marginTop: 40}}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Suporte</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Suporte</Text></TouchableOpacity>
             
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Privacidade</TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Privacidade</Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}>Termos e Condições </TouchableOpacity>            
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Termos e Condições</Text>
+            </TouchableOpacity>            
           </View>
         </View>
       </View>
@@ -53,17 +71,15 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontSize: 14,
-    fontFamily: 'Nunito_500Medium',
-    color: '#BFBFBF',
+    fontFamily: 'Poppins_600SemiBold',  
+    color: '#fff',
     lineHeight: 14
   },
   item: {
-    padding: 14,
+    padding: 16,
     marginHorizontal: 5,
     marginBottom: 16,
     borderRadius: 10,
     backgroundColor: '#FFCB69',
-    fontFamily: 'Poppins_600SemiBold',  
-    color: '#fff'
   },
 })

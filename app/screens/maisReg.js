@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function MaisReg({ navigateTo }) {
+  const { logout } = useContext(AuthContext);
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Poppins_700Bold, Poppins_600SemiBold
@@ -20,21 +22,39 @@ export default function MaisReg({ navigateTo }) {
           <Text style={{paddingLeft: 15, ...styles.h2}}>Mais</Text>
 
           <View style={{marginTop: 20}}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Editar Perfil</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Editar Perfil</Text>
+            </TouchableOpacity>
             
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Redefinir Senha</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Redefinir Senha</Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7} onPress={() => navigateTo('CriarGrupo')}><Text style={styles.txt}>Criar Grupo</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7} onPress={() => navigateTo('CriarGrupo')}>
+              <Text style={styles.txt}>Criar Grupo</Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Mudar Harpa</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Mudar Harpa</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={logout} style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Encerrar Sessão</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{marginTop: 40}}>
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Suporte</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Suporte</Text>
+            </TouchableOpacity>
             
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Privacidade</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Privacidade</Text>
+            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item} activeOpacity={0.7}><Text style={styles.txt}>Termos e Condições</Text></TouchableOpacity>            
+            <TouchableOpacity style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.txt}>Termos e Condições</Text>
+            </TouchableOpacity>            
           </View>
         </View>
       </View>

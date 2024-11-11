@@ -7,7 +7,7 @@ export default function Dashboard({}) {
   return (
     <View>
       <View>
-        <MenuSuperior/>        
+                
       </View>
     </View>
   )

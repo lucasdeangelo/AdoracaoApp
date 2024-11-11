@@ -61,19 +61,23 @@ export default function MaisComp() {
 
           <View style={{marginTop: 20}}>
             <TouchableOpacity style={styles.item} activeOpacity={0.7}>
-                <Text style={styles.itemText}>Editar Perfil</Text>
+              <Text style={styles.itemText}>Editar Perfil</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.item} activeOpacity={0.7}>
-                <Text style={styles.itemText}>Redefinir Senha</Text>
+              <Text style={styles.itemText}>Redefinir Senha</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleRemove} style={styles.item} activeOpacity={0.7}>
-                <Text style={styles.itemText}>Sair do Grupo</Text>
+              <Text style={styles.itemText}>Sair do Grupo</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.item} activeOpacity={0.7}>
-                <Text style={styles.itemText}>Mudar Harpa</Text>
+              <Text style={styles.itemText}>Mudar Harpa</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={logout} style={styles.item} activeOpacity={0.7}>
+              <Text style={styles.itemText}>Encerrar Sessão</Text>
             </TouchableOpacity>
           </View>
 

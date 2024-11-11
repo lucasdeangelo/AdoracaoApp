@@ -8,7 +8,7 @@ import { fetchHinoByNumero } from '../api/api';
 
 const formatText = (text, style = styles.textLine) => {
   return text.split('<br>').map((line, index) => (
-    <Text key={index} style={styles.textLine}>{line.trim()}</Text>
+    <Text key={index} style={style}>{line.trim()}</Text>
   ));
 };
 
@@ -16,7 +16,7 @@ export default function Hino({ selectedHino, navigateTo }) {
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Nunito_700Bold,
-    Poppins_700Bold
+    Poppins_700Bold    
   })
 
   if (!fontLoaded) {
@@ -50,8 +50,8 @@ export default function Hino({ selectedHino, navigateTo }) {
               {formatText(verse)}
               {index === 0 && coro && (
                 <View style={styles.coroContainer}>
-              {formatText(coro, styles.coro)}
-            </View>)}
+                  {formatText(coro, styles.coro)}
+                </View>)}
             </View>
           ))}
         </ScrollView>
@@ -102,11 +102,10 @@ const styles = StyleSheet.create({
     lineHeight: 17
   },
   coro: {
-    fontSize: 44,
-    fontStyle: 'italic',
-    marginBottom: 20,
-    marginTop: 10,
-    fontWeight: 'bold',
+    fontSize: 15,    
+    marginBottom: 3,
+    marginTop: 3,
+    color: '#BA9D36',
     fontFamily: 'Poppins_700Bold' 
   },
   titleContainer:{
@@ -117,9 +116,10 @@ const styles = StyleSheet.create({
   },
   coroContainer: {
     marginTop: 10,
+    marginBottom: 10
   },
   verseContainer: {
-    marginBottom: 10, // Adds space between verses
+    marginBottom: 10, 
   },
 
 })

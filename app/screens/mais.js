@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
-import { Poppins_700Bold } from '@expo-google-fonts/poppins';
+import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 
 export default function Mais() {
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
-    Poppins_700Bold
+    Poppins_700Bold, Poppins_600SemiBold
   })
 
   if (!fontLoaded) {

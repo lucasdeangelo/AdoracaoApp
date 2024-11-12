@@ -106,12 +106,16 @@ export default function AdicionarEnsaio({ navigateTo }) {
                         style={styles.input}
                     />
 
+                    <TouchableOpacity onPress={handleCreateEnsaio} style={styles.submitButton}>
+                        <Text style={styles.submitButtonText}>Criar Ensaio</Text>
+                    </TouchableOpacity>
+
                     <Text style={styles.subtitle} onPress={() => setMostrarHinos(!mostrarHinos)}>
                         Selecione os Hinos para o Ensaio
                     </Text>
 
                     {mostrarHinos && (
-                        <View>                            
+                        <View style={styles.box}>                            
                             <TextInput
                                 placeholder="Pesquisar hinos..."
                                 value={pesquisa}
@@ -140,11 +144,7 @@ export default function AdicionarEnsaio({ navigateTo }) {
                                 )}
                             />
                         </View>
-                    )}
-
-                    <TouchableOpacity onPress={handleCreateEnsaio} style={styles.submitButton}>
-                        <Text style={styles.submitButtonText}>Criar Ensaio</Text>
-                    </TouchableOpacity>
+                    )}                    
                 </View>
             </View>
         </View>
@@ -184,7 +184,8 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 18,
         fontFamily: 'Poppins_600SemiBold',
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 10
     },
     searchBar: {
         padding: 13,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito_500Medium',
       },
       submitButton: {
-        backgroundColor: '#FFCB69',
+        backgroundColor: '#26516E',
         padding: 15,
         borderRadius: 12,
         alignItems: 'center',

@@ -107,3 +107,29 @@ export const removeComponentFromGrupo = async (idUser) => {
     throw error;
   }
 };
+
+export const fetchEnsaiosDoGrupo = async (id_grupo) => {
+  try {
+    const response = await api.get(`ensaios/${id_grupo}/ensaios`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar ensaios do grupo:', error);
+    throw error;
+  }
+};
+
+// Função para criar um novo ensaio no grupo
+export const createEnsaio = async (id_grupo, data, descricao, local, hinos) => {
+  try {
+    const response = await api.post(`ensaios/${id_grupo}`, {
+      data,
+      descricao,
+      local,
+      hinos
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao criar ensaio:', error);
+    throw error;
+  }
+};

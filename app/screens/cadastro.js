@@ -37,7 +37,7 @@ export default function Cadastro({ navigateTo }) {
     registerUser(createUser)
       .then(response => {
         Alert.alert('Sucesso', 'Cadastro realizado com sucesso!');
-        router.push('/screens/login');
+        navigateTo('Login')
       })
       .catch(error => {
         Alert.alert('Erro', 'Erro ao realizar cadastro. Tente novamente.');
@@ -50,8 +50,8 @@ export default function Cadastro({ navigateTo }) {
       <View style={styles.main}>
         <Image source={require('../../assets/images/icon.png')} style={styles.image}/>
         <View style={styles.mainText}>
-          <Text style={styles.h1}>Vamos criar sua conta!</Text>           
-          <Text style={{...styles.txt, paddingTop: 5}}>Está pronto adorar? insira as informações abaixo para criar sua conta!</Text>        
+          <Text style={styles.h1}>Crie sua conta!</Text>           
+          <Text style={{...styles.txt, paddingTop: 5}}>Insira as informações abaixo para criar sua conta!</Text>        
         </View>
 
         <View style={styles.form}>
@@ -74,7 +74,7 @@ export default function Cadastro({ navigateTo }) {
               onChangeText={setEmail}
               keyboardType='email-address'
             />
-          </View>
+          </View>          
 
           <View style={{paddingTop: 12}}>
             <Text style={styles.h3}>Senha</Text>
@@ -102,15 +102,14 @@ export default function Cadastro({ navigateTo }) {
             <Text style={styles.h3}>Tipo de usuário</Text>
             <Picker     
               selectedValue={typeUser}         
-              style={styles.input}
+              style={{...styles.input, borderStyle: 'solid'}}
               onValueChange={(itemValue) => settypeUser(itemValue)}
             >
               <Picker.Item label="Selecione o tipo de usuário" value=""/>
               <Picker.Item label="Adorador" value="Adorador" />
               <Picker.Item label="Regente" value="Regente" />
               <Picker.Item label="Cantor" value="Cantor" />
-              <Picker.Item label="Músico" value="Músico" />
-              <Picker.Item label="Componente" value="Componente" />
+              <Picker.Item label="Músico" value="Músico" />             
             </Picker>            
           </View>
 
@@ -121,7 +120,7 @@ export default function Cadastro({ navigateTo }) {
           </View>
 
           <View style={{textAlign: 'center', paddingTop: 10}}>
-            <Text style={styles.h3}>Já tem conta? <TouchableOpacity style={styles.span} onPress={() => navigateTo('Login')}>Faça Login</TouchableOpacity></Text>
+            <Text style={styles.h3}>Já tem conta? <TouchableOpacity onPress={() => navigateTo('Login')}><Text style={styles.span}>Faça Login</Text></TouchableOpacity></Text>
           </View>
         </View>
       </View>

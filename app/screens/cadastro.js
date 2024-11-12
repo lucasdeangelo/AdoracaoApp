@@ -2,7 +2,6 @@ import { StyleSheet, Image, Text, View, TextInput, Picker, TouchableOpacity, Ale
 import React, { useState } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Link, useRouter } from 'expo-router';
 import { registerUser } from '../api/api';
 
 export default function Cadastro({ navigateTo }) {
@@ -11,7 +10,6 @@ export default function Cadastro({ navigateTo }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [typeUser, settypeUser] = useState('');
-  const router = useRouter();
 
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
@@ -123,7 +121,7 @@ export default function Cadastro({ navigateTo }) {
           </View>
 
           <View style={{textAlign: 'center', paddingTop: 10}}>
-            <Text style={styles.h3}>Já tem conta? <Link style={styles.span} href={'/screens/login'}>Faça Login</Link></Text>
+            <Text style={styles.h3}>Já tem conta? <TouchableOpacity style={styles.span} onPress={() => navigateTo('Login')}>Faça Login</TouchableOpacity></Text>
           </View>
         </View>
       </View>

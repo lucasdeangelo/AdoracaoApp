@@ -109,7 +109,7 @@ function Page() {
   let ScreenComponent;
 
   if (!user) {
-    ScreenComponent = Login;
+    ScreenComponent = currentScreen === "Cadastro" ? Cadastro : Login;
   } else if (currentScreen === 'Dashboard') {
     ScreenComponent = DashboardComponent;
   } else {

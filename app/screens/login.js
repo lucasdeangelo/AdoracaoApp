@@ -77,10 +77,10 @@ export default function Login({ navigateTo }) {
           </View>
 
           <TouchableOpacity style={styles.btn} activeOpacity={0.7} onPress={handleLogin}><Text style={{ color: '#FFFFFF', fontFamily: 'Nunito_500Medium' }}>Entrar</Text></TouchableOpacity>
-
-          <TouchableOpacity onPress={() => navigateTo('Cadastro')} style={{textAlign: 'center', paddingTop: 20}}>
-            <Text style={styles.h3}>Não tem conta ainda? <Text style={styles.span} >Criar Agora</Text></Text>
-          </TouchableOpacity>
+          
+          <View style={{textAlign: 'center', paddingTop: 10}}>
+            <Text style={styles.h3}>Não tem conta? <TouchableOpacity style={styles.span} onPress={() => navigateTo('Cadastro')}>Crie uma Conta</TouchableOpacity></Text>
+          </View>
         </View>
       </View>
     </View>
@@ -143,5 +143,11 @@ const styles = StyleSheet.create({
   span: {
     color: '#FFCB69',
     fontFamily: 'Poppins_700Bold'    
+  },
+  cad:{
+    textAlign: 'center', 
+    paddingTop: 10,
+    display: 'flex',
+    flexDirection: 'row'
   }
 })

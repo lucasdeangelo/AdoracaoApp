@@ -71,18 +71,19 @@ export default function EnsaiosReg({ navigateTo }) {
               <TouchableOpacity onPress={() => handleRemoveEnsaio(item.id)} style={styles.removeButton}>
                 <Image style={styles.removeButtonText} source={require('../../assets/icons/lixo-ensaio.png')}/>
               </TouchableOpacity>
-            <View style={styles.ensaioItem}>
-              
-              <View style={styles.ensaioTitleView}>
-                <Text style={{...styles.ensaioTitle, fontSize: 18}}>{item.descricao}</Text>
+              <View style={styles.ensaioItem}>
+                
+                <View style={styles.ensaioTitleView}>
+                  <Text style={{...styles.ensaioTitle, fontSize: 18}}>{item.descricao}</Text>
+                </View>
+                <Text style={styles.ensaioTitle}>{formattedDate}</Text>
+                <Text style={styles.ensaioText}>{item.local}</Text>              
               </View>
-              <Text style={styles.ensaioTitle}>{formattedDate}</Text>
-              <Text style={styles.ensaioText}>{item.local}</Text>              
-            </View>
             
             </View>
           );
         }}
+        contentContainerStyle={{ paddingBottom: 80 }}
       />           
     </View>
   );

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Alert } 
 import React, { useState, useEffect, useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { createEnsaio, fetchHinosGeral } from '../api/api';
+import { createEnsaio, fetchHinarioGrupo } from '../api/api';
 import { AuthContext } from '../contexts/AuthContext';
 
 export default function AdicionarEnsaio({ navigateTo }) {
@@ -19,7 +19,7 @@ export default function AdicionarEnsaio({ navigateTo }) {
     useEffect(() => {
         const loadHinos = async () => {
             try {
-              const hinos = await fetchHinosGeral();
+              const hinos = await fetchHinarioGrupo(id_grupo);
               setHinosDisponiveis(hinos);
               setHinosFiltrados(hinos);  
             } catch (error) {
@@ -41,13 +41,14 @@ export default function AdicionarEnsaio({ navigateTo }) {
     }, [pesquisa, hinosDisponiveis]);
 
     const handleCreateEnsaio = async () => {
-        if (!data || !descricao || !local || hinosSelecionados.length === 0) {
+        if (!data || !descricao || !local) {
           Alert.alert('Erro', 'Todos os campos são obrigatórios.');
           return;
-        }
-    
+        }      
+
         try {
-          await createEnsaio(id_grupo, data, descricao, local, hinosSelecionados);
+          const hinoIds = hinosSelecionados.length > 0 ? hinosSelecionados : null;
+          await createEnsaio(id_grupo, data, descricao, local, hinoIds);
           Alert.alert('Sucesso', 'Ensaio criado com sucesso!');
           setData('');
           setDescricao('');
@@ -60,10 +61,11 @@ export default function AdicionarEnsaio({ navigateTo }) {
       };
     
       const toggleHinoSelection = (hinoId) => {
+        const hinoIdInt = parseInt(hinoId, 10);
         setHinosSelecionados((prev) =>
-          prev.includes(hinoId) ? prev.filter((id) => id !== hinoId) : [...prev, hinoId]
+            prev.includes(hinoIdInt) ? prev.filter((id) => id !== hinoIdInt) : [...prev, hinoIdInt]
         );
-      };
+    };    
     
       const [fontLoaded] = useFonts({
         Nunito_500Medium,
@@ -110,7 +112,7 @@ export default function AdicionarEnsaio({ navigateTo }) {
                         <Text style={styles.submitButtonText}>Criar Ensaio</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.subtitle} onPress={() => setMostrarHinos(!mostrarHinos)}>
+                    {/* <Text style={styles.subtitle} onPress={() => setMostrarHinos(!mostrarHinos)}>
                         Selecione os Hinos para o Ensaio
                     </Text>
 
@@ -144,7 +146,7 @@ export default function AdicionarEnsaio({ navigateTo }) {
                                 )}
                             />
                         </View>
-                    )}                    
+                    )}                     */}
                 </View>
             </View>
         </View>

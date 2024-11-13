@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Alert }
 import React, { useState, useEffect, useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { fetchEnsaiosDoGrupo, createEnsaio, fetchHinosGeral } from '../api/api';
+import { fetchEnsaiosDoGrupo, fetchHinosGeral } from '../api/api';
 import { AuthContext } from '../contexts/AuthContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -73,7 +73,9 @@ export default function EnsaiosReg({ navigateTo }) {
               </View>
               <Text style={styles.ensaioTitle}>{formattedDate}</Text>
               <Text style={styles.ensaioText}>{item.local}</Text>
-              <Text style={styles.ensaioText}>Hinos: {item.hinos.join(', ')}</Text>
+              {/* <Text style={styles.ensaioText}>
+                Hinos: {item.hinos ? item.hinos.join(', ') : 'Nenhum hino selecionado'}
+              </Text> */}
             </View>
           );
         }}
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   ensaioItem: {
-    padding: 10,
+    padding: 12,
     marginHorizontal: 30,
     marginVertical: 10,
     backgroundColor: '#F5FBFF',

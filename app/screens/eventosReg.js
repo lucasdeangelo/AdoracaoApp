@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
-    backgroundColor: '#FF8282',
+    backgroundColor: '#FF4242',
     paddingTop: 3,
     paddingBottom: 5,
     paddingHorizontal: 14,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   eventoTitle:{
     fontSize: 16,
     fontFamily: 'Poppins_600SemiBold',
-    color: '#FF8282',
+    color: '#FF4242',
     marginBottom: 5
   },
   eventoItem: {

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Alert } from
 import React, { useState, useEffect, useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { fetchEventosDoGrupo, removeEvento } from '../api/api';
+import { fetchEventosDoGrupo } from '../api/api';
 import { AuthContext } from '../contexts/AuthContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -12,16 +12,16 @@ export default function EventosComp({ navigateTo }) {
   const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
-    const loadEnsaios = async () => {
+    const loadEventos = async () => {
       try {
         const data = await fetchEventosDoGrupo(id_grupo);
-        setEnsaios(data);
+        setEventos(data);
       } catch (error) {
         console.error('Erro ao carregar ensaios:', error);
       }
     };    
 
-    loadEnsaios();    
+    loadEventos();    
   }, [id_grupo]);
 
   const [fontLoaded] = useFonts({
@@ -50,9 +50,6 @@ export default function EventosComp({ navigateTo }) {
           const formattedDate = format(new Date(item.data), 'dd/MM - HH:mm', { locale: ptBR });
           return (
             <View>
-              <TouchableOpacity onPress={() => handleRemoveEventos(item.id)} style={styles.removeButton}>
-                <Image style={styles.removeButtonText} source={require('../../assets/icons/lixo-evento.png')}/>
-              </TouchableOpacity>
               <View style={styles.eventoItem}>
                 
                 <View style={styles.eventoTitleView}>
@@ -87,7 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
-    backgroundColor: '#26516E',
+    backgroundColor: '#FF4242',
     paddingTop: 3,
     paddingBottom: 5,
     paddingHorizontal: 14,
@@ -100,7 +97,7 @@ const styles = StyleSheet.create({
   eventoTitle:{
     fontSize: 16,
     fontFamily: 'Poppins_600SemiBold',
-    color: '#FF8282',
+    color: '#FF4242',
     marginBottom: 5
   },
   eventoItem: {
@@ -109,8 +106,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     backgroundColor: '#FFE2E2',
     borderRadius: 8,
-    marginBottom: 8,
-    width: 340,
+    marginBottom: 8
   },
   eventoText: {
     fontSize: 15,

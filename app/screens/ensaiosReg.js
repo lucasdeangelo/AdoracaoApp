@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { fetchEnsaiosDoGrupo, fetchHinosGeral } from '../api/api';
+import { fetchEnsaiosDoGrupo, removeEnsaio } from '../api/api';
 import { AuthContext } from '../contexts/AuthContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -20,21 +20,22 @@ export default function EnsaiosReg({ navigateTo }) {
       } catch (error) {
         console.error('Erro ao carregar ensaios:', error);
       }
-    };
+    };    
 
-    const loadHinos = async () => {
-      try {
-        const hinos = await fetchHinosGeral();
-        setHinosDisponiveis(hinos);
-      } catch (error) {
-        console.error('Erro ao carregar hinos:', error);
-      }
-    };
-
-    loadEnsaios();
-    loadHinos();
+    loadEnsaios();    
   }, [id_grupo]);
 
+  const handleRemoveEnsaio = async (id) => {
+    try {
+      await removeEnsaio(id);
+      Alert.alert('Sucesso', 'Ensaio deletado com sucesso!');
+      setEnsaios((prevEnsaios) => prevEnsaios.filter((ensaio) => ensaio.id !== id));
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao deletar ensaio.');
+      console.error(error);
+    }
+  }; 
+  
 
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
@@ -60,26 +61,29 @@ export default function EnsaiosReg({ navigateTo }) {
         </TouchableOpacity>
       </View>
 
-      
       <FlatList
         data={ensaios}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           const formattedDate = format(new Date(item.data), 'dd/MM - HH:mm', { locale: ptBR });
           return (
+            <View style={styles.lista}>
+              <TouchableOpacity onPress={() => handleRemoveEnsaio(item.id)} style={styles.removeButton}>
+                <Image style={styles.removeButtonText} source={require('../../assets/icons/lixo-ensaio.png')}/>
+              </TouchableOpacity>
             <View style={styles.ensaioItem}>
+              
               <View style={styles.ensaioTitleView}>
                 <Text style={{...styles.ensaioTitle, fontSize: 18}}>{item.descricao}</Text>
               </View>
               <Text style={styles.ensaioTitle}>{formattedDate}</Text>
-              <Text style={styles.ensaioText}>{item.local}</Text>
-              {/* <Text style={styles.ensaioText}>
-                Hinos: {item.hinos ? item.hinos.join(', ') : 'Nenhum hino selecionado'}
-              </Text> */}
+              <Text style={styles.ensaioText}>{item.local}</Text>              
+            </View>
+            
             </View>
           );
         }}
-      />     
+      />           
     </View>
   );
 }
@@ -124,11 +128,12 @@ const styles = StyleSheet.create({
   },
   ensaioItem: {
     padding: 12,
-    marginHorizontal: 30,
+    marginHorizontal: 10,
     marginVertical: 10,
     backgroundColor: '#F5FBFF',
     borderRadius: 8,
-    marginBottom: 8
+    marginBottom: 8,
+    width: 340,
   },
   ensaioText: {
     fontSize: 15,
@@ -136,4 +141,20 @@ const styles = StyleSheet.create({
     color: '#5F8BA9',
     marginBottom: 5
   },
+  lista: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'left',
+    alignItems: 'center',
+  },
+  removeButton: {
+    marginLeft: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  removeButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
 });

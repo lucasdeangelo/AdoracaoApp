@@ -132,3 +132,14 @@ export const createEnsaio = async (id_grupo, data, descricao, local, hinoIds) =>
     throw error;
   }
 };
+
+export const removeEnsaio = async (id) => {
+  try {
+    const response = await api.delete(`ensaios/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao deletar ensaio:', error);
+    throw error;
+  }
+};
+

@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Alert } 
 import React, { useState, useEffect, useContext } from 'react';
 import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import { createEnsaio, fetchHinarioGrupo } from '../api/api';
+import { createEvento, fetchHinarioGrupo } from '../api/api';
 import { AuthContext } from '../contexts/AuthContext';
 
-export default function AdicionarEnsaio({ navigateTo }) {
+export default function AdicionarEvento({ navigateTo }) {
     const { id_grupo } = useContext(AuthContext); 
     const [hinosDisponiveis, setHinosDisponiveis] = useState([]);
     const [hinosFiltrados, setHinosFiltrados] = useState([]);  
@@ -13,7 +13,6 @@ export default function AdicionarEnsaio({ navigateTo }) {
     const [local, setLocal] = useState('');
     const [data, setData] = useState('');
     const [hinosSelecionados, setHinosSelecionados] = useState([]);
-    const [mostrarHinos, setMostrarHinos] = useState(false); 
     const [pesquisa, setPesquisa] = useState('');  
 
     useEffect(() => {
@@ -28,19 +27,8 @@ export default function AdicionarEnsaio({ navigateTo }) {
         };
         loadHinos();
     }, [id_grupo]);
-
-    useEffect(() => {
-        if (pesquisa === '') {
-            setHinosFiltrados([]); 
-        } else {
-            const hinosFiltrados = hinosDisponiveis.filter((hino) =>
-                hino.titulo.toLowerCase().includes(pesquisa.toLowerCase()) 
-            );
-            setHinosFiltrados(hinosFiltrados); 
-        }
-    }, [pesquisa, hinosDisponiveis]);
-
-    const handleCreateEnsaio = async () => {
+    
+    const handleCreateEvento = async () => {
         if (!data || !descricao || !local) {
           Alert.alert('Erro', 'Todos os campos são obrigatórios.');
           return;
@@ -48,35 +36,35 @@ export default function AdicionarEnsaio({ navigateTo }) {
 
         try {
           const hinoIds = hinosSelecionados.length > 0 ? hinosSelecionados : null;
-          await createEnsaio(id_grupo, data, descricao, local, hinoIds);
-          Alert.alert('Sucesso', 'Ensaio criado com sucesso!');
+          await createEvento(id_grupo, data, descricao, local, hinoIds);
+          Alert.alert('Sucesso', 'Evento criado com sucesso!');
           setData('');
           setDescricao('');
           setLocal('');
           setHinosSelecionados([]);
-          loadEnsaios();
+          loadEventos();
         } catch (error) {
-          Alert.alert('Erro', 'Erro ao criar ensaio.');
+          Alert.alert('Erro', 'Erro ao criar evento.');
         }
-      };
-    
-      const toggleHinoSelection = (hinoId) => {
+    };
+
+    const toggleHinoSelection = (hinoId) => {
         const hinoIdInt = parseInt(hinoId, 10);
         setHinosSelecionados((prev) =>
             prev.includes(hinoIdInt) ? prev.filter((id) => id !== hinoIdInt) : [...prev, hinoIdInt]
         );
     };    
-    
-      const [fontLoaded] = useFonts({
+
+    const [fontLoaded] = useFonts({
         Nunito_500Medium,
         Poppins_700Bold,
         Poppins_600SemiBold
-      });
-    
-      if (!fontLoaded) {
-        return null;
-      }
+    });
 
+    if (!fontLoaded) {
+    return null;
+    }
+   
     return (
         <View>
             <View>
@@ -85,11 +73,11 @@ export default function AdicionarEnsaio({ navigateTo }) {
                     <Text style={styles.backButton}>&#60;</Text>
                     </TouchableOpacity>    
 
-                    <Text style={{paddingLeft: 15, ...styles.h2}}>Adicionar Ensaio</Text>
+                    <Text style={{paddingLeft: 15, ...styles.h2}}>Adicionar Evento</Text>
                 </View>
 
-                <View style={styles.container}>               
-                    <TextInput
+                <View style={styles.container}>
+                <TextInput
                         placeholder="Data (AAAA-MM-DD HH:MM)"
                         value={data}
                         onChangeText={setData}
@@ -108,45 +96,9 @@ export default function AdicionarEnsaio({ navigateTo }) {
                         style={styles.input}
                     />
 
-                    <TouchableOpacity onPress={handleCreateEnsaio} style={styles.submitButton}>
+                    <TouchableOpacity onPress={handleCreateEvento} style={styles.submitButton}>
                         <Text style={styles.submitButtonText}>Criar Ensaio</Text>
                     </TouchableOpacity>
-
-                    {/* <Text style={styles.subtitle} onPress={() => setMostrarHinos(!mostrarHinos)}>
-                        Selecione os Hinos para o Ensaio
-                    </Text>
-
-                    {mostrarHinos && (
-                        <View style={styles.box}>                            
-                            <TextInput
-                                placeholder="Pesquisar hinos..."
-                                value={pesquisa}
-                                onChangeText={setPesquisa}
-                                style={styles.input}
-                            />
-
-                            <FlatList
-                                data={hinosFiltrados}
-                                keyExtractor={(item) => item._id}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity
-                                        onPress={() => toggleHinoSelection(item._id)}
-                                        style={[
-                                            styles.hinoItem,
-                                            hinosSelecionados.includes(item._id) && styles.selectedHino
-                                        ]}
-                                    >
-                                        <Text style={[
-                                            styles.hinoText,
-                                            hinosSelecionados.includes(item._id) && { color: '#fff' } 
-                                        ]}>
-                                            {item.titulo}
-                                        </Text>
-                                    </TouchableOpacity>
-                                )}
-                            />
-                        </View>
-                    )}                     */}
                 </View>
             </View>
         </View>
@@ -169,7 +121,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: 'bold',
         color: 'white',
-        backgroundColor: '#26516E',
+        backgroundColor: '#FF8282',
         paddingTop: 3,
         paddingBottom: 5,
         paddingHorizontal: 14,
@@ -215,24 +167,24 @@ const styles = StyleSheet.create({
         color: '#26516E'
     }, 
     input: {
-        backgroundColor: '#F1FBFF',
+        backgroundColor: '#FFE2E2',
         padding: 12,
         paddingVertical: 14,
         borderWidth: 2,
         borderRadius: 12,
-        borderColor: '#26516E',
-        color: '#26516E',
+        borderColor: '#FF8282',
+        color: '#FF8282',
         marginBottom: 15,
         fontFamily: 'Nunito_500Medium',
       },
-      submitButton: {
-        backgroundColor: '#26516E',
+    submitButton: {
+        backgroundColor: '#FF8282',
         padding: 15,
         borderRadius: 12,
         alignItems: 'center',
-      },
-      submitButtonText: {
+    },
+    submitButtonText: {
         color: '#FFFFFF',
         fontFamily: 'Poppins_700Bold'
-      },    
+    },  
 })

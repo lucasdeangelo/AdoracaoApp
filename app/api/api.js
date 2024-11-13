@@ -143,3 +143,37 @@ export const removeEnsaio = async (id) => {
   }
 };
 
+export const fetchEventosDoGrupo = async (id_grupo) => {
+  try {
+    const response = await api.get(`eventos/${id_grupo}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar ensaios do grupo:', error);
+    throw error;
+  }
+};
+
+export const createEvento = async (id_grupo, data, descricao, local, hinoIds) => {
+  try {
+    const response = await api.post(`eventos/${id_grupo}`, {
+      data,
+      descricao,
+      local,
+      hinoIds: hinoIds || []
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao criar ensaio:', error);
+    throw error;
+  }
+};
+
+export const removeEvento = async (id) => {
+  try {
+    const response = await api.delete(`eventos/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao deletar ensaio:', error);
+    throw error;
+  }
+};

@@ -1,12 +1,121 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { useFonts, Nunito_500Medium } from '@expo-google-fonts/nunito';
+import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import { fetchEventosDoGrupo, removeEvento } from '../api/api';
+import { AuthContext } from '../contexts/AuthContext';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
-export default function EventosComp() {
+export default function EventosComp({ navigateTo }) {
+  const { id_grupo } = useContext(AuthContext); 
+  const [eventos, setEventos] = useState([]);
+
+  useEffect(() => {
+    const loadEnsaios = async () => {
+      try {
+        const data = await fetchEventosDoGrupo(id_grupo);
+        setEnsaios(data);
+      } catch (error) {
+        console.error('Erro ao carregar ensaios:', error);
+      }
+    };    
+
+    loadEnsaios();    
+  }, [id_grupo]);
+
+  const [fontLoaded] = useFonts({
+    Nunito_500Medium,
+    Poppins_700Bold,
+    Poppins_600SemiBold
+  });
+
+  if (!fontLoaded) {
+    return null;
+  }
   return (
     <View>
-      <Text>eventosComp</Text>
+      <View style={styles.titleContainer}>
+        <TouchableOpacity onPress={() => navigateTo('GrupoComp')}>
+          <Text style={styles.backButton}>&#60;</Text>
+        </TouchableOpacity>    
+
+        <Text style={{paddingLeft: 15, ...styles.h2}}>Eventos</Text>        
+      </View>
+
+      <FlatList
+        data={eventos}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          const formattedDate = format(new Date(item.data), 'dd/MM - HH:mm', { locale: ptBR });
+          return (
+            <View>
+              <TouchableOpacity onPress={() => handleRemoveEventos(item.id)} style={styles.removeButton}>
+                <Image style={styles.removeButtonText} source={require('../../assets/icons/lixo-evento.png')}/>
+              </TouchableOpacity>
+              <View style={styles.eventoItem}>
+                
+                <View style={styles.eventoTitleView}>
+                  <Text style={{...styles.eventoTitle, fontSize: 18}}>{item.descricao}</Text>
+                </View>
+                <Text style={styles.eventoTitle}>{formattedDate}</Text>
+                <Text style={styles.eventoText}>{item.local}</Text>              
+              </View>
+            
+            </View>
+          );
+        }}
+        contentContainerStyle={{ paddingBottom: 80 }}
+      />       
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  h2: {
+    fontSize: 24,
+    fontFamily: 'Poppins_700Bold',  
+    marginBottom: 15  
+  },
+  titleContainer:{
+    paddingVertical: 10,
+    paddingLeft: 10,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  backButton: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: '#26516E',
+    paddingTop: 3,
+    paddingBottom: 5,
+    paddingHorizontal: 14,
+    borderRadius: 5
+  },
+  eventoTitleView:{
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  eventoTitle:{
+    fontSize: 16,
+    fontFamily: 'Poppins_600SemiBold',
+    color: '#FF8282',
+    marginBottom: 5
+  },
+  eventoItem: {
+    padding: 12,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    backgroundColor: '#FFE2E2',
+    borderRadius: 8,
+    marginBottom: 8,
+    width: 340,
+  },
+  eventoText: {
+    fontSize: 15,
+    fontFamily: 'Nunito_500Medium',
+    color: '#FF8282',
+    marginBottom: 5
+  },
+})

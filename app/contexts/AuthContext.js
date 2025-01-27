@@ -15,10 +15,14 @@ export const AuthProvider = ({ children }) => {
       const storageidGrupo = await AsyncStorage.getItem('grupoId');
       
       if (token && id_user && userType ) {
-        setUser({ token, id_user, userType });
+        setUser({ 
+          token, 
+          id_user: Number(id_user), 
+          userType 
+        });
       }      
       if (storageidGrupo) {
-        setGrupoId(storageidGrupo); 
+        setGrupoId(Number(storageidGrupo)); 
       }
 
     };
@@ -28,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ token, id_user, userType, id_grupo }) => {
     await AsyncStorage.setItem('userToken', token);
-    await AsyncStorage.setItem('userId', id_user);
+    await AsyncStorage.setItem('userId', id_user.toString());;
     await AsyncStorage.setItem('userType', userType);
     if (id_grupo) {
       await AsyncStorage.setItem('grupoId', id_grupo.toString());

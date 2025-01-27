@@ -76,12 +76,14 @@ const userScreens = {
 function Page() {
   const { user } = useContext(AuthContext);
   const [currentScreen, setCurrentScreen] = useState('Dashboard');
+  const [previousScreen, setPreviousScreen] = useState(null);
   const [selectedHino, setSelectedHino] = useState(null);
   const [selectedHinoGeral, setSelectedHinoGeral] = useState(null);
 
-  const navigateTo = (screen, hino = null, hinoGeral = null) => {
+  const navigateTo = (screen, hino = null, hinoGeral = null, previousScreenParam = null) => {
     setSelectedHino(hino);
     setSelectedHinoGeral(hinoGeral);
+    setPreviousScreen(previousScreenParam || currentScreen);
     setCurrentScreen(screen);
   };
 
@@ -124,6 +126,7 @@ function Page() {
       <ScreenComponent
         navigateTo={navigateTo}
         selectedHino={selectedHino}
+        previousScreen={previousScreen} 
         selectedHinoGeral={selectedHinoGeral}
         onLogin={handleLogin}
         onLogout={handleLogout}

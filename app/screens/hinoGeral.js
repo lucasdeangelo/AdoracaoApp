@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import React, { useEffect, useState } from 'react';
 import { useFonts, Nunito_700Bold, Nunito_500Medium } from '@expo-google-fonts/nunito';
 import { Poppins_700Bold, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
-import MenuInferior from '../components/menuInferior';
-import MenuSuperior from '../components/menuSuperior';
 
 const formatText = (text, style = styles.textLine) => {
     return text.split('<br>').map((line, index) => (
@@ -11,7 +9,7 @@ const formatText = (text, style = styles.textLine) => {
     ));
   };
 
-export default function HinoGeral({ selectedHino, navigateTo }) {
+export default function HinoGeral({ selectedHino, navigateTo, previousScreen }) {
 
     const [fontLoaded] = useFonts({
       Nunito_500Medium,
@@ -36,7 +34,7 @@ export default function HinoGeral({ selectedHino, navigateTo }) {
   return (
     <View style={styles.container}>              
       <View style={styles.titleContainer}>
-        <TouchableOpacity onPress={() => navigateTo('Hinario')}>
+        <TouchableOpacity onPress={() => navigateTo(previousScreen || 'Hinario')}>
           <Text style={styles.backButton}>&#60;</Text>
         </TouchableOpacity>    
 

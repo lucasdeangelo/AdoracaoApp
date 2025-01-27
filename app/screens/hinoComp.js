@@ -9,7 +9,7 @@ const formatText = (text, style = styles.textLine) => {
   ));
 };
 
-export default function HinarioGrupo({ selectedHino, navigateTo }) {
+export default function HinarioGrupo({ selectedHino, navigateTo, previousScreen }) {
   const [fontLoaded] = useFonts({
     Nunito_500Medium,
     Nunito_700Bold
@@ -32,7 +32,7 @@ export default function HinarioGrupo({ selectedHino, navigateTo }) {
   return (
     <View style={styles.container}>              
       <View style={styles.titleContainer}>
-        <TouchableOpacity onPress={() => navigateTo('HinarioComp')}>
+        <TouchableOpacity onPress={() => navigateTo(previousScreen || 'HinarioComp')}>
           <Text style={styles.backButton}>&#60;</Text>
         </TouchableOpacity>    
         <Text style={{ paddingLeft: 15, ...styles.h2 }}>Hinário</Text>

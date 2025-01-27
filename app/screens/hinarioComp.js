@@ -30,11 +30,15 @@ export default function HinarioComp({ navigateTo }) {
   };
 
   useEffect(() => {
-    const filtered = hinosGrupo.filter(hino => 
-      removeAccents(hino.titulo && hino.titulo.toLowerCase()).includes(removeAccents(searchText.toLowerCase()))
-
-    );
-    setFilteredHinos(filtered);
+    if (Array.isArray(hinosGrupo)) { // Verifica se hinosGrupo é um array
+      const filtered = hinosGrupo.filter((hino) =>
+        (hino.titulo && removeAccents(hino.titulo.toLowerCase()).includes(removeAccents(searchText.toLowerCase()))) ||
+        (hino.numero && hino.numero.toString().includes(searchText))
+      );
+      setFilteredHinos(filtered);
+    } else {
+      setFilteredHinos([]); // Evita erros caso hinosGrupo não seja um array
+    }
   }, [searchText, hinosGrupo]);
 
   const [fontLoaded] = useFonts({

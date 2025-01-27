@@ -28,7 +28,7 @@ import GrupoComp from './screens/grupoComp';
 import HinarioReg from './screens/hinarioReg';
 import AdicionarHino from './screens/adicionarHino';
 import HinarioComp from './screens/hinarioComp';
-import hinarioGrupo from './screens/hinarioGrupo';
+import hinarioGrupo from './screens/hinoComp';
 import Componentes from './screens/componentes';
 import AdicionarComp from './screens/adicionarComp';
 import Notificacoes from './screens/notificacoes';

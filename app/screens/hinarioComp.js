@@ -52,7 +52,7 @@ export default function HinarioComp({ navigateTo }) {
     <View>
       <View>
         <View style={styles.titleContainer}>
-          <TouchableOpacity onPress={() => navigateTo('GrupoReg')}>
+          <TouchableOpacity onPress={() => navigateTo('GrupoComp')}>
             <Text style={styles.backButton}>&#60;</Text>
           </TouchableOpacity>    
 

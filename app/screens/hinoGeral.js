@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   backButton: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
     backgroundColor: '#26516E',
     paddingTop: 3,
     paddingBottom: 5,

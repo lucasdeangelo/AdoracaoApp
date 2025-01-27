@@ -150,13 +150,12 @@ const styles = StyleSheet.create({
   lista: {
     display: 'flex',
     flexDirection: 'row-reverse',
-    justifyContent: 'left',
     alignItems: 'center',
   },
   backButton: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ffffff',
     backgroundColor: '#FFCB69',
     paddingTop: 3,
     paddingBottom: 5,
@@ -178,10 +177,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 30,
     height: 30
-  },
-  removeButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold'
   }
 })

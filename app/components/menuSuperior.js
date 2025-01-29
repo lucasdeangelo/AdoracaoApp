@@ -16,12 +16,12 @@ export default function MenuSuperior({ navigateTo }) {
     <View>
         <View style={styles.main}>
             <View style={styles.profile}>
-                <Image source={require('../../assets/icons/perfil-1.svg')} style={styles.profileiImg}/>
+                <Image source={require('../../assets/icons/perfil.png')} style={styles.profileiImg}/>
             </View>
 
             <View style={styles.btn}>
                 <TouchableOpacity onPress={() => navigateTo('Notificacao')}>            
-                    <Image source={require('../../assets/icons/notification.svg')} />
+                    <Image source={require('../../assets/icons/notification.png')} />
                 </TouchableOpacity>                
             </View>
         </View>

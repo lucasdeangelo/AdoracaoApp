@@ -177,3 +177,33 @@ export const removeEvento = async (id) => {
     throw error;
   }
 };
+
+export const addFavorito = async (id_user, hinoId, tipo_hino) => {
+  try {
+    const response = await api.post(`/favoritos/${id_user}`, { hinoId, tipo_hino });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Erro ao adicionar favorito:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const fetchFavoritos = async (id_user) => {
+  try {
+    const response = await api.get(`/favoritos/${id_user}`);
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao carregar favoritos:', error);
+    throw error;
+  }
+};
+
+export const removeFavorito = async (id_user, hinoId) => {
+  try {
+    const response = await api.delete(`/favoritos/${id_user}/${hinoId}`);
+    return response.data;  
+  } catch (error) {
+    console.error('Erro ao remover favorito:', error);
+    throw error;
+  }
+};

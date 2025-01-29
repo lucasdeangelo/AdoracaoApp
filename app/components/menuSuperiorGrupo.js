@@ -16,16 +16,16 @@ export default function MenuSuperiorGrupo({ navigateTo }) {
     <View>
         <View style={styles.main}>
             <View style={styles.profile}>
-                <Image source={require('../../assets/icons/perfil-1.svg')} style={styles.profileiImg}/>
+                <Image source={require('../../assets/icons/perfil.png')} style={styles.profileiImg}/>
             </View>
 
             <View style={styles.btn}>
                 <TouchableOpacity onPress={() => navigateTo('Favoritos')}>            
-                    <Image source={require('../../assets/icons/coracao-yellow.svg')} style={{marginRight: 15, top: 5}}/>
+                    <Image source={require('../../assets/icons/coracao-yellow.png')} style={{marginRight: 15, top: 5}}/>
                 </TouchableOpacity> 
                               
                 <TouchableOpacity onPress={() => navigateTo('Notificacao')}>            
-                    <Image source={require('../../assets/icons/notification.svg')} />
+                    <Image source={require('../../assets/icons/notification.png')} />
                 </TouchableOpacity>   
 
             </View>
@@ -37,7 +37,8 @@ export default function MenuSuperiorGrupo({ navigateTo }) {
 const styles = StyleSheet.create({
     main:{
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: 20
     },
     profile: {
         display: 'flex',
